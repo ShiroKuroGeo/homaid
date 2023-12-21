@@ -1,0 +1,293 @@
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            job: [],
+            categories: [],
+            selectedTypes: [],
+            selectedCategory: [],
+            applicantUsers: [],
+            getHireRequiments: [],
+            getMyPostApplication: [],
+            fullname: '',
+            email: '',
+            requirements: [],
+            age: 0,
+            categ: '',
+            reasonOfReport: '',
+            picture: '',
+            status: 0,
+            userIdes: 0,
+            skills: '',
+        }
+    },
+    methods: {
+        storeApplication: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "storeApplication");
+            data.append("fullname", vue.fullname);
+            data.append("age", vue.age);
+            data.append("skills", vue.skills);
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert('Application sends!');
+                    } else {
+                        alert('Cannot send the application');
+                    }
+                });
+        },
+        reportUsers: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "reportUsers");
+            data.append("reason", vue.reasonOfReport);
+            data.append("id", id);
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert('User reported!');
+                    } else {
+                        alert('Cannot send the application');
+                    }
+                });
+        },
+        getApplicantUsers: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "applicantUsers");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.applicantUsers = [];
+
+                    for (var v of r.data) {
+                        vue.applicantUsers.push({
+                            appl_id: v.appl_id,
+                            hfirstname: v.hfirstname,
+                            hlastname: v.hlastname,
+                            plastname: v.plastname,
+                            status: v.status,
+                            created_at: v.created_at,
+                        });
+                    }
+                });
+        },
+        hireRequiments: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "hireRequiments");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.getHireRequiments = [];
+
+                    for (var v of r.data) {
+                        vue.getHireRequiments.push({
+                            firstname: v.firstname,
+                            lastname: v.lastname,
+                            houFirstname: v.houFirstname,
+                            houLastname: v.houLastname,
+                            requirements: v.requirements,
+                            status: v.status,
+                        });
+                    }
+                });
+        },
+        MyPostApplication: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "myApplication");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.getMyPostApplication = [];
+
+                    for (var v of r.data) {
+                        vue.getMyPostApplication.push({
+                            appli_id: v.appli_id,
+                            user_id: v.user_id,
+                            picture: v.picture,
+                            fullname: v.fullname,
+                            age: v.age,
+                            skills: v.skills,
+                            status: v.status,
+                            created_at: v.created_at,
+                            updated_at: v.updated_at,
+                        });
+                    }
+                });
+        },
+        getCategorySelected: function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var category = urlParams.get('category');
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "jobs");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.selectedCategory = [];
+
+                    for (var v of r.data) {
+                        if (v.job_cat == category) {
+                            vue.selectedCategory.push({
+                                job_id: v.job_id,
+                                user_id: v.user_id,
+                                job_title: v.job_title,
+                                job_cat: v.job_cat,
+                                picture: v.picture,
+                                firstname: v.firstname,
+                                job_descrip: v.job_descrip,
+                                job_status: v.job_status,
+                                created_at: v.created_at,
+                                updated_at: v.updated_at,
+                            });
+                        }
+                    }
+                });
+        },
+        getUserId: function (id) {
+            this.userIdes = id;
+        },
+        getTypesSelected: function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var jobTypes = urlParams.get('jobTypes');
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "jobs");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.selectedTypes = [];
+
+                    for (var v of r.data) {
+                        if (v.job_types == jobTypes) {
+                            vue.selectedTypes.push({
+                                job_id: v.job_id,
+                                user_id: v.user_id,
+                                job_title: v.job_title,
+                                job_cat: v.job_cat,
+                                picture: v.picture,
+                                job_types: v.job_types,
+                                firstname: v.firstname,
+                                job_descrip: v.job_descrip,
+                                job_status: v.job_status,
+                                created_at: v.created_at,
+                                updated_at: v.updated_at,
+                            });
+                        }
+                    }
+                });
+        },
+        getRequimentsMessage: function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var id = urlParams.get('appli');
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "requiments");
+            data.append("id", id);
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.requirements = [];
+
+                    for (var v of r.data) {
+                        vue.requirements.push({
+                            message: v.message
+                        });
+                    }
+                });
+        },
+        jobs: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "jobs");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.job = [];
+
+                    for (var v of r.data) {
+                        vue.job.push({
+                            job_id: v.job_id,
+                            user_id: v.user_id,
+                            job_title: v.job_title,
+                            job_cat: v.job_cat,
+                            picture: v.picture,
+                            job_types: v.job_types,
+                            firstname: v.firstname,
+                            job_descrip: v.job_descrip,
+                            job_status: v.job_status,
+                            created_at: v.created_at,
+                            updated_at: v.updated_at,
+                        });
+                    }
+                });
+        },
+        deleteThisApplication: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "deleteApplication");
+            data.append("id", id);
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert('Successfully deleted!');
+                    } else {
+                        alert(r.data);
+                    }
+                });
+        },
+        allCategories: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "jobs");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.categories = [];
+
+                    for (var v of r.data) {
+                        vue.categories.push({ category: v.job_cat });
+                    }
+                });
+        },
+        apply: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "applyJob");
+            data.append("id", id);
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert("Successfully Send Application!");
+                    } else if (r.data == 401) {
+                        alert('Already Applied to this Application!');
+                    } else {
+                        alert(r.data);
+                    }
+
+                });
+        },
+        userLogin: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "userLogin");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    for (var v of r.data) {
+                        vue.fullname = v.lastname + ", " + v.firstname;
+                        vue.email = v.email;
+                        vue.picture = v.picture;
+                        vue.status = v.status;
+                    }
+                });
+        },
+    },
+    created: function () {
+        this.jobs();
+        this.userLogin();
+        this.allCategories();
+        this.getCategorySelected();
+        this.hireRequiments();
+        this.MyPostApplication();
+        this.getTypesSelected();
+        this.getRequimentsMessage();
+        this.getApplicantUsers();
+    }
+}).mount('#homeaid-applicant')
