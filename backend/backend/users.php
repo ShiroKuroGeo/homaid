@@ -40,7 +40,8 @@ class users
         }
     }
 
-    private function registerHomeOwnerFunction($firstname, $lastname, $username, $email, $password, $profile, $valid){
+    private function registerHomeOwnerFunction($firstname, $lastname, $username, $email, $password, $profile, $valid)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -70,29 +71,15 @@ class users
                 $stmt = $db->getCon()->prepare($this->loginQuery());
                 $stmt->execute(array($username, md5($password)));
                 $role = null;
-                $status = null;
 
                 while ($row = $stmt->fetch()) {
 
                     $role = $row['role'];
-                    $status = $row['status'];
                     $_SESSION['id'] = $row['user_id'];
+                    $_SESSION['role'] = $row['role'];
                 }
 
-                if ($status == 1) {
-                    if ($role == 1) {
-                        return 1;
-                    } else if ($role == 2) {
-                        return 2;
-                    } else if ($role == 3) {
-                        return 3;
-                    }else{
-                        return 4;
-                    }
-                } else {
-                    return 5;
-                }
-
+                return $role;
             } else {
                 return "NoDatabaseConnection";
             }
@@ -101,15 +88,18 @@ class users
         }
     }
 
-    private function registerQuery(){
+    private function registerQuery()
+    {
         return "INSERT INTO `users`(`firstname`, `lastname`, `username`, `email`, `password`, `role`) VALUES (?,?,?,?,?,1)";
     }
 
-    private function registerHomeOwnerQuery(){
+    private function registerHomeOwnerQuery()
+    {
         return "INSERT INTO `users`(`firstname`, `lastname`, `username`, `email`, `password`, `picture`, `valid_id`, `role`) VALUES (?,?,?,?,?,?,?,2)";
     }
 
-    private function loginQuery(){
+    private function loginQuery()
+    {
         return "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
     }
 }

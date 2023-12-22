@@ -10,6 +10,11 @@ class applicant {
     {
         return $this->reportUsersFunction($id, $reason, $usid);
     }
+    
+    public function updateProfile($picture, $fn, $ln, $id)
+    {
+        return $this->updateProfileFunction($picture, $fn, $ln, $id);
+    }
 
     public function requiments($id)
     {
@@ -196,6 +201,29 @@ class applicant {
         }
     }
     
+    private function updateProfileFunction($picture, $fn, $ln, $id){
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+
+                $stmt = $db->getCon()->prepare($this->updateProfileQuery());
+                $stmt->execute(array($picture, $fn, $ln, $id));
+                $result = $stmt->fetch();
+
+                if(!$result){
+                    return 200;
+                }else{
+                    return 400;
+                }
+
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+    
     private function reportUsersFunction($id, $reason, $usid){
         try {
             $db = new Database();
@@ -284,5 +312,8 @@ class applicant {
         return "INSERT INTO `reports`(`user_id`, `reason`, `reported_id`) VALUES (?,?,?)";
     }
 
+    public function updateProfileQuery(){
+        return "UPDATE `users` SET `picture` = ?, `firstname` = ?, `lastname` = ? WHERE `user_id` = ?";
+    }
     
 }

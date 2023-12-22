@@ -85,6 +85,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="../../chat/chats.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>

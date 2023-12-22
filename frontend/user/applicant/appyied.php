@@ -48,51 +48,57 @@
 
 <body>
     <div id="homeaid-applicant">
-    <header id="header" class="fixed-top ">
-      <div class="container d-flex align-items-center justify-content-lg-between">
-        <h1 class="logo me-auto me-lg-0"><a href="index.php">HOME<span class="bg info">AID</span></a></h1>
-        <nav id="navbar" class="navbar order-last order-lg-0">
-          <ul>
-            <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-            <li class="dropdown"><a href="#"><span>Category</span> <i class="bi bi-chevron-down"></i></a>
-              <ul class="text-dark">
-                <li v-for="cat of categories"><a :href="'/homaid/frontend/user/applicant/category.php?category='+ cat.category" class="text-dark">{{cat.category}}</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#"><span>Types</span> <i class="bi bi-chevron-down"></i></a>
-              <ul class="text-dark">
-                <li><a href="/homaid/frontend/user/applicant/jobtypes.php?jobTypes=Part Time" class="text-dark">Part Time</a></li>
-                <li><a href="/homaid/frontend/user/applicant/jobtypes.php?jobTypes=Full Time" class="text-dark">Full Time</a></li>
-              </ul>
-            </li>
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
-        <div class="d-flex">
-          <a href="#" class="#" id="accountLink">{{fullname}}</a>
-        </div>
-        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile bg-dark" id="accountDropdown">
-          <li>
-            <a class="dropdown-item d-flex align-items-center text-white" href="profile2.php">
-              <i class="bi bi-person me-3"></i>
-              <span>My Profile</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item d-flex align-items-center text-white" href="appyied.php">
-              <i class="bi bi-envelope me-3"></i>
-              <span>My Apply Job</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
-              <i class="bi bi-box-arrow-right me-3"></i>
-              <span>Sign Out</span>
-            </a>
-          </li>
-        </div>
-      </div>
-    </header>
+        <header id="header" class="fixed-top ">
+            <div class="container d-flex align-items-center justify-content-lg-between">
+                <h1 class="logo me-auto me-lg-0"><a href="index.php">HOME<span class="bg info">AID</span></a></h1>
+                <nav id="navbar" class="navbar order-last order-lg-0">
+                    <ul>
+                        <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+                        <li class="dropdown"><a href="#"><span>Category</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul class="text-dark">
+                                <li v-for="cat of categories"><a :href="'/homaid/frontend/user/applicant/category.php?category='+ cat.category" class="text-dark">{{cat.category}}</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#"><span>Types</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul class="text-dark">
+                                <li><a href="/homaid/frontend/user/applicant/jobtypes.php?jobTypes=Part Time" class="text-dark">Part Time</a></li>
+                                <li><a href="/homaid/frontend/user/applicant/jobtypes.php?jobTypes=Full Time" class="text-dark">Full Time</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+                <div class="d-flex">
+                    <a href="#" class="#" id="accountLink">{{fullname}}</a>
+                </div>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile bg-dark" id="accountDropdown">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="profile2.php">
+                            <i class="bi bi-person me-3"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="appyied.php">
+                            <i class="bi bi-envelope me-3"></i>
+                            <span>My Apply Job</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="../../chat/chats.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
+                            <i class="bi bi-box-arrow-right me-3"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </header>
         <section id="hero" class="d-flex align-items-center justify-content-center">
             <div class="container" data-aos="fade-up">
                 <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">

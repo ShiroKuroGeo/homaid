@@ -24,7 +24,7 @@ createApp({
                     if (r.data == 1) {
                         window.location.href = "frontend/user/applicant/index.php";
                     } else if (r.data == 2) {
-                        window.location.href = "frontend/user/homeowner/index.php";
+                        window.location.href = "frontend/user/homeowner/profile.php";
                     } else if (r.data == 3) {
                         window.location.href = "frontend/admin/index.php";
                     } else {

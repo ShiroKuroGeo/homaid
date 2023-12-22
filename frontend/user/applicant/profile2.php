@@ -84,6 +84,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="../../chat/chats.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -116,8 +122,39 @@
                                             </div>
                                         </div>
                                         <div class="d-flex pt-1">
-                                            <button type="button" class="btn btn-outline-info me-1 flex-grow-1" data-bs-toggle="modal" data-bs-target="#postApplication">Post</button>
+                                            <button type="button" class="btn btn-outline-primary me-1 flex-grow-1" data-bs-toggle="modal" data-bs-target="#postApplication">Post</button>
                                             <a href="myApplication.php" class="btn btn-outline-warning me-1 flex-grow-1">View</a>
+                                            <a href="myApplication.php" class="btn btn-outline-info me-1 flex-grow-1" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</a>
+                                        </div>
+                                        <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editProfileLabel">Edit Profile</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1" class="form-label">Profile Picture</label><br>
+                                                            <i class="bi bi-camera" style="font-size: 70px; cursor: pointer;" onclick="document.getElementById('picture').click()"></i>
+                                                            <input type="file" name="profile" id="picture" class="visually-hidden">
+                                                            <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1" class="form-label">First Name</label>
+                                                            <input type="email" class="form-control" v-model="firstname" aria-describedby="emailHelp">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                                                            <input type="email" class="form-control" v-model="lastname" aria-describedby="emailHelp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" @click="updateProfile">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal fade" id="postApplication" tabindex="-1" aria-labelledby="postApplicationLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">

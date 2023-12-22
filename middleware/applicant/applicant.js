@@ -20,6 +20,8 @@ createApp({
             status: 0,
             userIdes: 0,
             skills: '',
+            firstname: '',
+            lastname: '',
         }
     },
     methods: {
@@ -36,6 +38,23 @@ createApp({
                         alert('Application sends!');
                     } else {
                         alert('Cannot send the application');
+                    }
+                });
+        },
+        updateProfile: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "updateProfile");
+            data.append("picture", document.getElementById('picture').files[0]);
+            data.append("firstname", vue.firstname);
+            data.append("lastname", vue.lastname);
+            data.append("id", id);
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert('User Information Updated!');
+                    } else {
+                        alert(r.data);
                     }
                 });
         },

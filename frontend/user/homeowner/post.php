@@ -48,7 +48,7 @@
 <body>
 
     <div id="homeaid-homeowner">
-    <header id="header" class="fixed-top ">
+        <header id="header" class="fixed-top ">
             <div class="container d-flex align-items-center justify-content-lg-between">
                 <h1 class="logo me-auto me-lg-0"><a href="index.php">HOME<span class="bg info">AID</span></a></h1>
                 <nav id="navbar" class="navbar order-last order-lg-0">
@@ -67,6 +67,12 @@
                         <a class="dropdown-item d-flex align-items-center text-white" href="profile.php">
                             <i class="bi bi-person me-3"></i>
                             <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="../../chat/chats.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>Messages</span>
                         </a>
                     </li>
                     <li>
@@ -99,6 +105,12 @@
                                                 <div class="form-outline">
                                                     <label class="form-label" for="firstName">Job Category</label>
                                                     <input type="text" v-model="jobCategory" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="firstName">Job Location</label>
+                                                    <input type="text" v-model="joblocation" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-12 mb-4">

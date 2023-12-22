@@ -85,6 +85,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="../../chat/chats.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -126,6 +132,7 @@
                                         <img :src="'/homaid/assets/img/'+ u.picture" class="img-fluid" width="250" alt="">
                                     </div>
                                     <div class="social">
+                                        <a :href="'/homaid/frontend/chat/chatroom.php?id='+u.user_id" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User"><i class="bi bi-chat"></i></a>
                                         <a href="#" @click="apply(u.job_id)" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User"><i class="bi bi-hand-thumbs-up-fill"></i></a>
                                         <a type="button" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Report Users" data-bs-content="Report Users">
                                             <i class="bi bi-exclamation-circle" @click="getUserId(u.user_id)" data-bs-toggle="modal" data-bs-target="#reportUserasd"></i>

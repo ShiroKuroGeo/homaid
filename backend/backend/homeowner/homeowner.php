@@ -68,9 +68,9 @@ class homeowner
         return $this->requirementsOfHiredFunction($mes, $id);
     }
 
-    public function storeJobs($id, $jobTitle, $jobCategory, $jobDescrip, $types)
+    public function storeJobs($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location)
     {
-        return $this->storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types);
+        return $this->storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location);
     }
 
     public function hireds($id)
@@ -129,13 +129,13 @@ class homeowner
         }
     }
 
-    private function storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types)
+    private function storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location)
     {
         try {
             $db = new Database();
             if ($db->getStatus()) {
                 $stmt = $db->getCon()->prepare($this->storeJobsQuery());
-                $stmt->execute(array($id, $jobTitle, $jobCategory, $jobDescrip, $types));
+                $stmt->execute(array($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location));
                 $result = $stmt->fetch();
 
                 if (!$result) {
@@ -422,7 +422,7 @@ class homeowner
 
     private function storeJobsQuery()
     {
-        return "INSERT INTO `jobs`(`user_id`, `job_title`, `job_cat`, `job_descrip`,`job_types`) VALUES (?,?,?,?,?)";
+        return "INSERT INTO `jobs`(`user_id`, `job_title`, `job_cat`, `job_descrip`,`job_types`,`location`) VALUES (?,?,?,?,?,?)";
     }
 
     private function profileDetailsQuery()

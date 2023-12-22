@@ -69,6 +69,13 @@
                             <span>My Profile</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="../../chat/chats.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
@@ -147,7 +154,8 @@
                                         <img :src="'../../../assets/img/' + ap.picture" height="250" width="250" class="rounded" alt="">
                                     </div>
                                     <div class="social">
-                                        <a href="#" @click="hireThisPersion(ap.user_id)" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                                        <a :href="'/homaid/frontend/chat/chatroom.php?id='+ap.user_id" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User"><i class="bi bi-chat"></i></a>
+                                        <button class="btn btn-sm btn-light p-2" @click="hireThisPersion(ap.user_id)" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User" :disabled="myStatus == 0"><i class="bi bi-hand-thumbs-down" v-if="myStatus == 0"></i><i class="bi bi-hand-thumbs-up-fill" v-else></i></button>
                                         <a type="button" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Report Users" data-bs-content="Report Users">
                                             <i class="bi bi-exclamation-circle" @click="getUserId(ap.user_id)" data-bs-toggle="modal" data-bs-target="#reportUserasd"></i>
                                         </a>

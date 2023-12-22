@@ -70,6 +70,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="../../chat/chats.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -106,6 +112,7 @@
                                             <td>
                                                 <button type="button" class="btn btn-primary btn-md  me-1 px-3" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq" :disabled="ha.status == 1">Send Requirements</button>
                                                 <button type="button" class="btn btn-primary btn-md col-4" @click="hired(ha.hired_id)" :disabled="ha.status != 1">Hired</button>
+                                                <a class="btn btn-md btn-primary ms-1" :href="'/homaid/frontend/chat/chatroom.php?id='+ha.user_id"><i class="bi bi-chat"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>

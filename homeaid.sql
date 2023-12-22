@@ -305,6 +305,15 @@ INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `username`, `email`, `p
 (33, 'glen', 'ranido', 'glenranido', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '22.jpg', 2, 1, '2023-12-20 13:18:49', '2023-12-20 13:18:49'),
 (34, 'glen ', 'cute', 'glen', 'glen@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-12-20 13:21:36', '2023-12-20 13:21:36');
 
+
+CREATE TABLE `chats` (
+  `chatId` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  `reciever` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --

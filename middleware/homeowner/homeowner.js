@@ -16,11 +16,13 @@ createApp({
             messsageHired: '',
             messsage: '',
             types: '',
+            joblocation: '',
             jobCategory: '',
             jobDescrip: '',
             appl_ids: 0,
             userIdes: 0,
             user_ids: 0,
+            myStatus: 0,
             idHireReq: 0,
         }
     },
@@ -136,6 +138,7 @@ createApp({
                 .then(function (r) {
                     for (var v of r.data) {
                         vue.fullname = v.lastname + ", " + v.firstname;
+                        vue.myStatus = v.status;
                     }
                 });
         },
@@ -173,7 +176,7 @@ createApp({
                 .then(function (r) {
                     if (r.data == 200) {
                         alert("Successfully Hired!");
-                    } else if(r.data == 401){
+                    } else if (r.data == 401) {
                         alert('Already hired this person!');
                     } else {
                         alert("Not Successfull");
@@ -338,6 +341,23 @@ createApp({
                     }
                 });
         },
+        updateProfile: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "updateProfile");
+            data.append("picture", document.getElementById('picture').files[0]);
+            data.append("firstname", vue.firstname);
+            data.append("lastname", vue.lastname);
+            data.append("id", id);
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert('User Information Updated!');
+                    } else {
+                        alert(r.data);
+                    }
+                });
+        },
         storeJobs: function () {
             const vue = this;
             var data = new FormData();
@@ -345,6 +365,7 @@ createApp({
             data.append("jobTitle", vue.jobTitle);
             data.append("jobCategory", vue.jobCategory);
             data.append("jobDescrip", vue.jobDescrip);
+            data.append("joblocation", vue.joblocation);
             data.append("types", vue.types);
             axios.post('../../../backend/routes/homeowner.php', data)
                 .then(function (r) {
