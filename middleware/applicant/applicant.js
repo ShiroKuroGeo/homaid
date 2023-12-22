@@ -298,6 +298,7 @@ createApp({
             axios.post('../../../backend/routes/applicant.php', data)
                 .then(function (r) {
                     for (var v of r.data) {
+                        vue.fullname = v.lastname + ', ' + v.firstname;
                         vue.vfullname = v.firstname;
                         vue.vlastname = v.lastname;
                         vue.email = v.email;
