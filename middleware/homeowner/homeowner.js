@@ -141,6 +141,7 @@ createApp({
                     for (var v of r.data) {
                         vue.Myfirstname = v.firstname;
                         vue.Mylastname = v.lastname;
+                        vue.fullname = v.lastname +', '+ v.firstname;
                         vue.myStatus = v.status;
                     }
                 });
@@ -369,7 +370,7 @@ createApp({
             data.append("jobTitle", vue.jobTitle);
             data.append("jobCategory", vue.jobCategory);
             data.append("jobDescrip", vue.jobDescrip);
-            data.append("joblocation", vue.joblocation);
+            data.append("jobLocation", vue.joblocation);
             data.append("types", vue.types);
             axios.post('../../../backend/routes/homeowner.php', data)
                 .then(function (r) {

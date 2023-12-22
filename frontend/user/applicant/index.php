@@ -174,6 +174,7 @@
                   <h4 class="text-capitalize">{{u.firstname}}</h4>
                   Job Title: <span class="text-capitalize">{{u.job_title}}</span>
                   Job Types: <span class="text-capitalize">{{u.job_types}}</span>
+                  Location: <span class="text-capitalize">{{u.location == '' ? 'No Location' : u.location}}</span>
                 </div>
               </div>
             </div>

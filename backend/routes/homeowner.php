@@ -73,9 +73,9 @@
     
     function storeJobs(){
         $homeowner = new homeowner();
-        echo $homeowner->storeJobs($_SESSION['id'],$_POST['jobTitle'],$_POST['jobCategory'],$_POST['jobDescrip'], $_POST['types'], $_POST['joblocation']);
+        echo $homeowner->storeJobs($_SESSION['id'],$_POST['jobTitle'],$_POST['jobCategory'],$_POST['jobDescrip'], $_POST['types'], $_POST['jobLocation']);
     }
-    // requirementsOfApplying($app, $id, $mes)
+
     function requirementsOfApplying(){
         $homeowner = new homeowner();
         echo $homeowner->requirementsOfApplying($_POST['applyId'], $_POST['user_id'], $_POST['message']);

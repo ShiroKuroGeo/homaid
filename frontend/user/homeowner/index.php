@@ -113,8 +113,11 @@
                                     <input type="text" class="form-control" v-model="jobCategory">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Job Location</label>
+                                    <input type="text" class="form-control" v-model="joblocation">
+                                </div>
+                                <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Job Types</label>
-                                    <!-- <input type="text" class="form-control" v-model="types"> -->
                                     <select v-model="types" class="form-control">
                                         <option value="" selected hidden>Select Job Types</option>
                                         <option value="Full Time">Full Time</option>

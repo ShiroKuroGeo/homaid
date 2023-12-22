@@ -235,6 +235,7 @@ createApp({
                             user_id: v.user_id,
                             job_title: v.job_title,
                             job_cat: v.job_cat,
+                            location: v.location,
                             picture: v.picture,
                             job_types: v.job_types,
                             firstname: v.firstname,
