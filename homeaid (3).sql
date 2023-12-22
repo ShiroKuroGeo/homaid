@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2023 at 01:45 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Dec 22, 2023 at 05:50 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,7 +37,7 @@ CREATE TABLE `applicants` (
   `status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `applicants`
@@ -46,7 +46,8 @@ CREATE TABLE `applicants` (
 INSERT INTO `applicants` (`appli_id`, `user_id`, `picture`, `fullname`, `age`, `skills`, `status`, `created_at`, `updated_at`) VALUES
 (1, 2, 'glen.jpg', 'Glen', 123, 'Passers', 1, '2023-12-01 16:58:23', '2023-12-01 16:58:23'),
 (2, 14, 'default.png', 'ranido, glenr', 23, 'Tig hugas, tig kuan', 1, '2023-12-18 13:10:38', '2023-12-18 13:10:38'),
-(4, 32, 'default.png', 'alawin, ivan', 30, 'tabling \r\nswimming', 1, '2023-12-20 12:36:58', '2023-12-20 12:36:58');
+(4, 32, 'default.png', 'alawin, ivan', 30, 'tabling \r\nswimming', 1, '2023-12-20 12:36:58', '2023-12-20 12:36:58'),
+(6, 39, '173472113_508180986867522_5999261301032980265_n.jpg', 'casq, kevin', 20, '-cooking', 1, '2023-12-22 06:29:09', '2023-12-22 06:29:09');
 
 -- --------------------------------------------------------
 
@@ -61,20 +62,44 @@ CREATE TABLE `applyingjobs` (
   `status` int(11) NOT NULL DEFAULT 2,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `applyingjobs`
 --
 
 INSERT INTO `applyingjobs` (`appl_id`, `homeowner_id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(42, 6, 14, 1, '2023-12-18 11:34:03', '2023-12-18 11:34:03'),
-(43, 12, 32, 2, '2023-12-20 12:42:28', '2023-12-20 12:42:28'),
-(44, 8, 9, 2, '2023-12-20 12:53:17', '2023-12-20 12:53:17'),
-(45, 31, 9, 2, '2023-12-20 12:53:33', '2023-12-20 12:53:33'),
-(46, 7, 32, 2, '2023-12-20 13:07:20', '2023-12-20 13:07:20'),
-(47, 8, 32, 2, '2023-12-20 13:07:48', '2023-12-20 13:07:48'),
-(48, 2, 32, 2, '2023-12-20 13:08:17', '2023-12-20 13:08:17');
+(61, 47, 46, 2, '2023-12-22 15:33:24', '2023-12-22 15:33:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chats`
+--
+
+CREATE TABLE `chats` (
+  `chatId` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  `reciever` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chats`
+--
+
+INSERT INTO `chats` (`chatId`, `sender`, `reciever`, `message`, `created`) VALUES
+(1, 9, 6, 'Hello world', '2023-12-21 17:32:07'),
+(2, 6, 9, 'Hello shit', '2023-12-21 17:32:09'),
+(3, 9, 6, 'ows', '2023-12-21 17:40:44'),
+(4, 9, 6, 'qwe', '2023-12-21 17:40:47'),
+(5, 2, 6, 'hmm herllo', '2023-12-21 18:02:27'),
+(6, 6, 2, 'hi\r\n', '2023-12-21 18:03:36'),
+(7, 47, 39, 'Hello ', '2023-12-22 15:11:47'),
+(8, 47, 39, 'Hi', '2023-12-22 15:12:52'),
+(9, 47, 39, 'Hello', '2023-12-22 15:12:57'),
+(10, 47, 2, 'OI BOANG', '2023-12-22 15:14:19');
 
 -- --------------------------------------------------------
 
@@ -89,7 +114,7 @@ CREATE TABLE `comments` (
   `comment` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `comments`
@@ -118,7 +143,7 @@ CREATE TABLE `hireds` (
   `requirements` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hireds`
@@ -138,7 +163,13 @@ INSERT INTO `hireds` (`hired_id`, `homeowner_id`, `hired_user_id`, `requirements
 (21, 31, 14, '', 1, '2023-12-20 13:06:40'),
 (22, 31, 14, '', 1, '2023-12-20 13:11:56'),
 (23, 31, 14, '', 1, '2023-12-20 13:12:00'),
-(24, 31, 2, '', 1, '2023-12-20 13:16:55');
+(24, 31, 2, '', 1, '2023-12-20 13:16:55'),
+(25, 36, 2, '', 1, '2023-12-22 01:30:55'),
+(26, 1, 2, 'resume', 2, '2023-12-22 06:21:32'),
+(27, 39, 39, 'resume', 2, '2023-12-22 06:29:43'),
+(28, 46, 39, '', 1, '2023-12-22 06:50:32'),
+(29, 46, 2, '', 1, '2023-12-22 07:18:25'),
+(30, 47, 39, '', 1, '2023-12-22 15:15:10');
 
 -- --------------------------------------------------------
 
@@ -155,22 +186,29 @@ CREATE TABLE `jobs` (
   `job_types` varchar(125) NOT NULL,
   `job_status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `location` varchar(125) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`job_id`, `user_id`, `job_title`, `job_cat`, `job_descrip`, `job_types`, `job_status`, `created_at`, `updated_at`) VALUES
-(2, 6, 'Babysetter', 'Baby Setter', 'Tig bantayg bata malamang', 'Full Time', 1, '2023-11-26 07:36:03', '2023-11-26 07:36:03'),
-(7, 6, 'Cleaner', 'Cleaner', 'I need a cleaner.', 'Part Time', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42'),
-(8, 6, 'I need a gardener.', 'Gardener', 'I need someone to gardener.', 'Full Time', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42'),
-(9, 6, 'Ambot', 'Breeder', 'This item is for breeding.', 'Part Time', 1, '2023-12-15 16:23:27', '2023-12-15 16:23:27'),
-(10, 29, 'bataybata', '', '-30k', 'Full Time', 1, '2023-12-16 03:51:35', '2023-12-16 03:51:35'),
-(11, 6, 'Cleaner', 'Cleaning my room', 'This is to clean a room.', 'Part Time', 1, '2023-12-17 13:35:31', '2023-12-17 13:35:31'),
-(12, 31, 'title', 'baby ko', 'cordova\r\n1M', 'Part Time', 1, '2023-12-20 12:33:50', '2023-12-20 12:33:50'),
-(13, 33, 'baby sister', '', '30k\r\ncordova', 'Full Time', 1, '2023-12-20 13:20:43', '2023-12-20 13:20:43');
+INSERT INTO `jobs` (`job_id`, `user_id`, `job_title`, `job_cat`, `job_descrip`, `job_types`, `job_status`, `created_at`, `updated_at`, `location`) VALUES
+(2, 6, 'Babysetter', 'Baby Setter', 'Tig bantayg bata malamang', 'Full Time', 1, '2023-11-26 07:36:03', '2023-11-26 07:36:03', ''),
+(7, 6, 'Cleaner', 'Cleaner', 'I need a cleaner.', 'Part Time', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42', ''),
+(8, 6, 'I need a gardener.', 'Gardener', 'I need someone to gardener.', 'Full Time', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42', ''),
+(9, 6, 'Ambot', 'Breeder', 'This item is for breeding.', 'Part Time', 1, '2023-12-15 16:23:27', '2023-12-15 16:23:27', ''),
+(10, 29, 'bataybata', '', '-30k', 'Full Time', 1, '2023-12-16 03:51:35', '2023-12-16 03:51:35', ''),
+(11, 6, 'Cleaner', 'Cleaning my room', 'This is to clean a room.', 'Part Time', 1, '2023-12-17 13:35:31', '2023-12-17 13:35:31', ''),
+(12, 31, 'title', 'baby ko', 'cordova\r\n1M', 'Part Time', 1, '2023-12-20 12:33:50', '2023-12-20 12:33:50', ''),
+(13, 33, 'baby sister', '', '30k\r\ncordova', 'Full Time', 1, '2023-12-20 13:20:43', '2023-12-20 13:20:43', ''),
+(14, 39, 'cooking', '', '50k', 'Part Time', 1, '2023-12-22 06:31:00', '2023-12-22 06:31:00', ''),
+(15, 46, 'baby', '', '50k', 'Part Time', 1, '2023-12-22 06:54:58', '2023-12-22 06:54:58', ''),
+(16, 47, 'hi', 'hello', 'Hi hello', 'Full Time', 1, '2023-12-22 15:15:32', '2023-12-22 15:15:32', ''),
+(17, 47, 'Hello', 'world', 'Hhehehe', 'Full Time', 1, '2023-12-22 15:58:44', '2023-12-22 15:58:44', ''),
+(18, 47, '123', '123', '123', 'Part Time', 1, '2023-12-22 16:03:11', '2023-12-22 16:03:11', '31'),
+(19, 47, 'tig hugas', 'hugas', 'Tig hugas sa kabaw', 'Part Time', 1, '2023-12-22 16:03:37', '2023-12-22 16:03:37', 'cordova');
 
 -- --------------------------------------------------------
 
@@ -184,7 +222,7 @@ CREATE TABLE `recommendations` (
   `user_Id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -198,7 +236,7 @@ CREATE TABLE `reports` (
   `reported_id` int(11) NOT NULL,
   `reason` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reports`
@@ -220,7 +258,7 @@ CREATE TABLE `requirement` (
   `message` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `requirement`
@@ -247,7 +285,7 @@ CREATE TABLE `skills` (
   `skills_types` text NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -268,7 +306,7 @@ CREATE TABLE `users` (
   `status` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -276,43 +314,23 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `username`, `email`, `password`, `picture`, `valid_id`, `role`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'george', 'alfeser', 'shiro', '123@123', '202cb962ac59075b964b07152d234b70', 'default.png', '', 3, 1, '2023-11-25 08:02:44', '2023-11-25 08:02:44'),
-(2, 'jd', 'germo', 'jd123', 'jd@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-11-26 09:16:34', '2023-11-26 09:16:34'),
-(6, 'homeowner', 'homeowner', 'hom', 'homeowner@homeowner', '202cb962ac59075b964b07152d234b70', 'default.png', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 0, '2023-11-25 09:11:53', '2023-11-25 09:11:53'),
-(7, 'jd', 'germo', 'jd123', 'jd@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 2, 1, '2023-11-26 09:16:43', '2023-11-26 09:16:43'),
-(9, 'jd', 'germo', 'jd123', 'jd@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-11-26 09:17:27', '2023-11-26 09:17:27'),
+(2, '123', '123', 'jd123', 'jd@gmail.com', '202cb962ac59075b964b07152d234b70', 'bedroom set of 4.jpg', '', 1, 1, '2023-11-26 09:16:34', '2023-11-26 09:16:34'),
+(6, 'Owner', 'Home', 'hom', 'homeowner@homeowner', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 1, '2023-11-25 09:11:53', '2023-11-25 09:11:53'),
 (10, '123', '123', '123', '123@12', '202cb962ac59075b964b07152d234b70', 'default.png', 'activity.PNG', 1, 1, '2023-11-26 09:26:57', '2023-11-26 09:26:57'),
-(11, '123', '123', '123', '123@12', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-11-26 09:28:31', '2023-11-26 09:28:31'),
-(12, '123', '123', '123', '123@12', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-11-26 09:28:44', '2023-11-26 09:28:44'),
-(14, 'glenr', 'ranido', '123', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-11-27 08:44:22', '2023-11-27 08:44:22'),
-(15, 'kevin ', 'abano', 'kevin123', 'kiven@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-12-11 23:49:46', '2023-12-11 23:49:46'),
-(16, 'glen', 'ranido', 'ranido12', 'ranidoglen@gmail.com', '202cb962ac59075b964b07152d234b70', '23.PNG', 'logo.png', 1, 1, '2023-12-11 23:54:37', '2023-12-11 23:54:37'),
-(17, 'mero', 'ranido', 'mero', 'mero@gmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 1, 1, '2023-12-11 23:56:04', '2023-12-11 23:56:04'),
-(18, 'kevin', 'mero', 'mero123', 'mero@gmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 'default.png', '', 1, 1, '2023-12-12 00:02:16', '2023-12-12 00:02:16'),
-(19, 'asd', 'asd', 'asd', 'asd', '7815696ecbf1c96e6894b779456d330e', 'default.png', '', 1, 1, '2023-12-14 07:25:21', '2023-12-14 07:25:21'),
-(20, '1234', '1234', '1234', '1234@123', '81dc9bdb52d04dc20036dbd8313ed055', '311202075_1109981239642694_4928069177595602249_n.jpg', 'n.jpg', 1, 3, '2023-12-14 14:18:31', '2023-12-14 14:18:31'),
-(21, '123', '123', '12345', '123@12345', '827ccb0eea8a706c4c34a16891f84e7b', '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 1, 3, '2023-12-14 14:20:43', '2023-12-14 14:20:43'),
-(22, 'Shiro', 'Geo', 'shiroGeo', 'shiroGeo@gmail.com', '4297f44b13955235245b2497399d7a93', '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 1, 3, '2023-12-14 15:29:13', '2023-12-14 15:29:13'),
-(23, 'homeowner', 'homeowner', 'home', 'home', '4297f44b13955235245b2497399d7a93', '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 2, '2023-12-14 15:33:50', '2023-12-14 15:33:50'),
-(24, '12312', '123123', '123123', '123123', '4297f44b13955235245b2497399d7a93', '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 1, '2023-12-14 15:34:25', '2023-12-14 15:34:25'),
-(25, 'jimero', 'abano', 'merochan', 'merochan@gmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', '311202075_1109981239642694_4928069177595602249_n.jpg', 'carr.jpg', 2, 1, '2023-12-15 00:46:12', '2023-12-15 00:46:12'),
-(26, 'glen', 'ranido', 'glenranido', 'glen@gmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 'default.png', '', 1, 1, '2023-12-15 01:02:31', '2023-12-15 01:02:31'),
-(27, 'Glen', 'Ranido', 'glenranido', 'ranido@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-12-15 12:50:57', '2023-12-15 12:50:57'),
-(28, '123', '123', '1234', '1234@1234', '81dc9bdb52d04dc20036dbd8313ed055', '173472113_508180986867522_5999261301032980265_n.jpg', 'image-removebg-preview.png', 2, 1, '2023-12-15 15:23:08', '2023-12-15 15:23:08'),
-(29, 'kiven', 'abano', 'kiven', 'kiven@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '23.PNG', 2, 1, '2023-12-16 03:50:31', '2023-12-16 03:50:31'),
-(30, 'glen', 'ranido', 'glen', 'glen@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-12-16 03:52:22', '2023-12-16 03:52:22'),
-(31, 'cute', 'GLEN', 'cuteglen', 'glen@gmail.com', '202cb962ac59075b964b07152d234b70', '1234.jpg', 'n.jpg', 2, 1, '2023-12-20 12:30:15', '2023-12-20 12:30:15'),
-(32, 'ivan', 'alawin', 'alawin123', 'alawin@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 0, '2023-12-20 12:34:50', '2023-12-20 12:34:50'),
 (33, 'glen', 'ranido', 'glenranido', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '22.jpg', 2, 1, '2023-12-20 13:18:49', '2023-12-20 13:18:49'),
-(34, 'glen ', 'cute', 'glen', 'glen@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-12-20 13:21:36', '2023-12-20 13:21:36');
-
-
-CREATE TABLE `chats` (
-  `chatId` int(11) NOT NULL,
-  `sender` int(11) NOT NULL,
-  `reciever` int(11) NOT NULL,
-  `message` text NOT NULL,
-  `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(34, 'glen ', 'cute', 'glen', 'glen@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-12-20 13:21:36', '2023-12-20 13:21:36'),
+(36, 'homShiro', 'oi', 'homshiro12', 'homshiro@gmail.com', '202cb962ac59075b964b07152d234b70', 'CALENDAR.PNG', 'carr.jpg', 2, 0, '2023-12-22 01:21:34', '2023-12-22 01:21:34'),
+(37, 'glen', 'ranido', 'glen123', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '23.PNG', 2, 1, '2023-12-22 06:20:14', '2023-12-22 06:20:14'),
+(38, 'mero', 'abano', 'jelmero123', 'jelmero@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '', 1, 0, '2023-12-22 06:24:38', '2023-12-22 06:24:38'),
+(39, 'kevin', 'casq', 'kevin123', 'kevin@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', 'first come first serve.PNG', 2, 1, '2023-12-22 06:27:57', '2023-12-22 06:27:57'),
+(40, 'johua', 'blase', 'blase', 'blase@gmail.com', '202cb962ac59075b964b07152d234b70', 'n.jpg', '3.jpg', 2, 1, '2023-12-22 06:35:12', '2023-12-22 06:35:12'),
+(41, 'glen', 'ranido', 'meo', 'meo@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 0, '2023-12-22 06:36:04', '2023-12-22 06:36:04'),
+(42, 'quitay', 'cute', 'cute', 'cute@gmail.com', '202cb962ac59075b964b07152d234b70', 'kjhg.jpg', 'n.jpg', 2, 1, '2023-12-22 06:38:03', '2023-12-22 06:38:03'),
+(43, 'shinra', 'tense', 'tense', 'tense@gmail.com', '202cb962ac59075b964b07152d234b70', 'logo.png', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 1, '2023-12-22 06:43:02', '2023-12-22 06:43:02'),
+(44, 'meor', 'last', 'chan', 'chan@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '', 1, 0, '2023-12-22 06:44:11', '2023-12-22 06:44:11'),
+(45, 'glen', 'ranido', 'bat', 'bat@gmail.com', '202cb962ac59075b964b07152d234b70', '311202075_1109981239642694_4928069177595602249_n.jpg', '', 1, 0, '2023-12-22 06:48:52', '2023-12-22 06:48:52'),
+(46, 'Shiro', 'Inoc', 'qwe', 'qwe', '202cb962ac59075b964b07152d234b70', '406810112_302821768801035_3765542810081729389_n.jpg', 'asd.jpg', 1, 1, '2023-12-22 06:49:45', '2023-12-22 06:49:45'),
+(47, 'Shiro', 'geo', 'shiroi', 'shir@gmail.com', '202cb962ac59075b964b07152d234b70', '406810112_302821768801035_3765542810081729389_n.jpg', 'Untitled video.mp4', 2, 1, '2023-12-22 14:59:52', '2023-12-22 14:59:52');
 
 --
 -- Indexes for dumped tables
@@ -329,6 +347,12 @@ ALTER TABLE `applicants`
 --
 ALTER TABLE `applyingjobs`
   ADD PRIMARY KEY (`appl_id`);
+
+--
+-- Indexes for table `chats`
+--
+ALTER TABLE `chats`
+  ADD PRIMARY KEY (`chatId`);
 
 --
 -- Indexes for table `comments`
@@ -386,13 +410,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `appli_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `appli_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `applyingjobs`
 --
 ALTER TABLE `applyingjobs`
-  MODIFY `appl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `appl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `chats`
+--
+ALTER TABLE `chats`
+  MODIFY `chatId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -404,13 +434,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `hireds`
 --
 ALTER TABLE `hireds`
-  MODIFY `hired_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `hired_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `recommendations`
@@ -440,7 +470,7 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
