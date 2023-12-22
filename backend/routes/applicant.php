@@ -25,6 +25,7 @@ function applyJob()
 {
     $applicant = new applicant();
     echo $applicant->applyJob($_POST['id'], $_SESSION['id']);
+    
 }
 
 function updateProfile()

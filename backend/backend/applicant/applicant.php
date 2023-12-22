@@ -275,7 +275,7 @@ class applicant {
     }
 
     private function applyJobQuery(){
-        return "INSERT INTO `applyingjobs`(`user_id`, `homeowner_id`) VALUES (?,?)";
+        return "INSERT INTO `applyingjobs`(`homeowner_id`, `user_id`) VALUES (?,?)";
     }
     private function userLoginQuery(){
         return "SELECT `user_id`, `firstname`, `lastname`, `username`, `email`, `password`, `picture`, `valid_id`, `role`, `status`, `created_at`, `updated_at` FROM `users` WHERE `user_id` = ?";

@@ -19,6 +19,8 @@ createApp({
             joblocation: '',
             jobCategory: '',
             jobDescrip: '',
+            Myfirstname: '',
+            Mylastname: '',
             appl_ids: 0,
             userIdes: 0,
             user_ids: 0,
@@ -137,7 +139,8 @@ createApp({
             axios.post('../../../backend/routes/homeowner.php', data)
                 .then(function (r) {
                     for (var v of r.data) {
-                        vue.fullname = v.lastname + ", " + v.firstname;
+                        vue.Myfirstname = v.firstname;
+                        vue.Mylastname = v.lastname;
                         vue.myStatus = v.status;
                     }
                 });
@@ -353,6 +356,7 @@ createApp({
                 .then(function (r) {
                     if (r.data == 200) {
                         alert('User Information Updated!');
+                        window.location.reload();
                     } else {
                         alert(r.data);
                     }

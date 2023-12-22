@@ -21,6 +21,8 @@ createApp({
             userIdes: 0,
             skills: '',
             firstname: '',
+            vfullname: '',
+            vlastname: '',
             lastname: '',
         }
     },
@@ -42,21 +44,26 @@ createApp({
                 });
         },
         updateProfile: function (id) {
-            const vue = this;
-            var data = new FormData();
-            data.append("method", "updateProfile");
-            data.append("picture", document.getElementById('picture').files[0]);
-            data.append("firstname", vue.firstname);
-            data.append("lastname", vue.lastname);
-            data.append("id", id);
-            axios.post('../../../backend/routes/applicant.php', data)
-                .then(function (r) {
-                    if (r.data == 200) {
-                        alert('User Information Updated!');
-                    } else {
-                        alert(r.data);
-                    }
-                });
+            if (!document.getElementById('picture').files[0]) {
+                alert('Insert Profile Picture!');
+            } else {
+                const vue = this;
+                var data = new FormData();
+                data.append("method", "updateProfile");
+                data.append("picture", document.getElementById('picture').files[0]);
+                data.append("firstname", vue.vfullname);
+                data.append("lastname", vue.vlastname);
+                data.append("id", id);
+                axios.post('../../../backend/routes/applicant.php', data)
+                    .then(function (r) {
+                        if (r.data == 200) {
+                            alert('User Information Updated!');
+                            window.location.reload();
+                        } else {
+                            alert(r.data);
+                        }
+                    });
+            }
         },
         reportUsers: function (id) {
             const vue = this;
@@ -266,11 +273,11 @@ createApp({
                     }
                 });
         },
-        apply: function (id) {
+        apply: function (ids) {
             const vue = this;
             var data = new FormData();
             data.append("method", "applyJob");
-            data.append("id", id);
+            data.append("id", ids);
             axios.post('../../../backend/routes/applicant.php', data)
                 .then(function (r) {
                     if (r.data == 200) {
@@ -290,7 +297,8 @@ createApp({
             axios.post('../../../backend/routes/applicant.php', data)
                 .then(function (r) {
                     for (var v of r.data) {
-                        vue.fullname = v.lastname + ", " + v.firstname;
+                        vue.vfullname = v.firstname;
+                        vue.vlastname = v.lastname;
                         vue.email = v.email;
                         vue.picture = v.picture;
                         vue.status = v.status;

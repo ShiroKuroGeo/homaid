@@ -81,7 +81,7 @@
                 </div>
             </div>
         </header>
-        <section class="h-100 gradient-custom-2" v-for="pd of profileDetailsData">
+        <section id="hero" class="h-100 gradient-custom-2" v-for="pd of profileDetailsData">
             <div class="container-fluid py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col col-lg-10 col-xl-10">

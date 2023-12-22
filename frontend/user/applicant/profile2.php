@@ -109,7 +109,7 @@
                                         <img :src="'../../../assets/img/'+picture" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                                     </div>
                                     <div class="flex-grow-1 ms-3">
-                                        <h5 class="mb-1 text-capitalize">{{fullname}}</h5>
+                                        <h5 class="mb-1 text-capitalize">{{vlastname}},{{vfullname}}</h5>
                                         <p class="mb-2 pb-1 text-capitalize" style="color: #2b2a2a;">{{email}}</p>
                                         <div class="d-flex justify-content-evenly rounded-3 p-2 mb-2" style="background-color: #efefef;">
                                             <div>
@@ -137,16 +137,16 @@
                                                         <div class="mb-3">
                                                             <label for="exampleInputEmail1" class="form-label">Profile Picture</label><br>
                                                             <i class="bi bi-camera" style="font-size: 70px; cursor: pointer;" onclick="document.getElementById('picture').click()"></i>
-                                                            <input type="file" name="profile" id="picture" class="visually-hidden">
+                                                            <input type="file" name="profile" id="picture" class="visually-hidden" required>
                                                             <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleInputEmail1" class="form-label">First Name</label>
-                                                            <input type="email" class="form-control" v-model="firstname" aria-describedby="emailHelp">
+                                                            <input type="email" class="form-control" id="email" name="id" v-model="vfullname" aria-describedby="emailHelp" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleInputEmail1" class="form-label">Last Name</label>
-                                                            <input type="email" class="form-control" v-model="lastname" aria-describedby="emailHelp">
+                                                            <input type="email" class="form-control" v-model="vlastname" aria-describedby="emailHelp">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

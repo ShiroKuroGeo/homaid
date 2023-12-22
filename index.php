@@ -123,9 +123,9 @@
 
               <div class="swiper-slide">
                 <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
+                  <img src="assets/img/G.jpg" class="testimonial-img" alt="">
+                  <h3>Glen ranido</h3>
+                  
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
                     Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
@@ -136,8 +136,8 @@
 
               <div class="swiper-slide">
                 <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
+                  <img src="assets/img/k.jpg" class="testimonial-img" alt="">
+                  <h3>kiven casquejo</h3>
                   <h4>Designer</h4>
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
@@ -149,9 +149,9 @@
 
               <div class="swiper-slide">
                 <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
+                  <img src="assets/img/S.jpg" class="testimonial-img" alt="">
+                  <h3>jelmero abano</h3>
+                  <h4>developer</h4>
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
                     Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
