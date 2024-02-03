@@ -70,16 +70,22 @@ class users
             if ($db->getStatus()) {
                 $stmt = $db->getCon()->prepare($this->loginQuery());
                 $stmt->execute(array($username, md5($password)));
+                $status = null;
                 $role = null;
 
                 while ($row = $stmt->fetch()) {
 
                     $role = $row['role'];
+                    $status = $row['status'];
                     $_SESSION['id'] = $row['user_id'];
                     $_SESSION['role'] = $row['role'];
                 }
 
-                return $role;
+                if($status == 0){
+                    return 400;
+                }else{
+                    return $role;
+                }
             } else {
                 return "NoDatabaseConnection";
             }

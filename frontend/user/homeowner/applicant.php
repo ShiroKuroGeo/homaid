@@ -107,11 +107,12 @@
                                     <tbody>
                                         <tr v-for="ha of hiredApplicants">
                                             <th scope="row"><img :src="'../../../assets/img/' +ha.picture" width="60" height="60" class="roundeds" alt=""></th>
-                                            <td class="text-capitalize">{{ha.lastname}}, {{ha.firstname}}</td>
+                                            <td class="text-capitalize">{{ ha.lastname }}, {{ ha.firstname }}</td>
                                             <td>{{ha.status == 2 ? 'Hired' : 'Pending'}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-md  me-1 px-3" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq" :disabled="ha.status == 1">Send Requirements</button>
-                                                <button type="button" class="btn btn-primary btn-md col-4" @click="hired(ha.hired_id)" :disabled="ha.status != 1">Hired</button>
+                                                <button type="button" class="btn btn-primary btn-md me-1" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq">View </button>
+                                                <button type="button" class="btn btn-primary btn-md me-1" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq">Send </button>
+                                                <button type="button" class="btn btn-primary btn-md" @click="hired(ha.hired_id)" :disabled="ha.status != 1">{{ ha.status != 1 ? 'Hired' : 'Hire' }}</button>
                                                 <a class="btn btn-md btn-primary ms-1" :href="'/homaid/frontend/chat/chatroom.php?id='+ha.user_id"><i class="bi bi-chat"></i></a>
                                             </td>
                                         </tr>

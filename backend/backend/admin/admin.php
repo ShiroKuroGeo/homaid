@@ -234,6 +234,7 @@ class admin
     {
         return "UPDATE `users` SET `status`= 0 WHERE `user_id` = ?";
     }
+    
     private function deleteReportedQuery()
     {
         return "DELETE FROM `reports` WHERE `reported_id` = ?";

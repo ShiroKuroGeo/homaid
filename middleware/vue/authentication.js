@@ -28,7 +28,7 @@ createApp({
                     } else if (r.data == 3) {
                         window.location.href = "frontend/admin/index.php";
                     } else {
-                        alert('No Data Existed!');
+                        alert('No Data Existed or Blocked Account!');
                     }
                 });
         },
