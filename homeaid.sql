@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2023 at 05:50 PM
+-- Generation Time: Feb 07, 2024 at 10:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,7 +69,7 @@ CREATE TABLE `applyingjobs` (
 --
 
 INSERT INTO `applyingjobs` (`appl_id`, `homeowner_id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(61, 47, 46, 2, '2023-12-22 15:33:24', '2023-12-22 15:33:24');
+(61, 47, 15, 1, '2023-12-22 15:33:24', '2023-12-22 15:33:24');
 
 -- --------------------------------------------------------
 
@@ -140,7 +140,9 @@ CREATE TABLE `hireds` (
   `hired_id` int(11) NOT NULL,
   `homeowner_id` int(11) NOT NULL,
   `hired_user_id` int(11) NOT NULL,
+  `jobTitle` text NOT NULL,
   `requirements` text NOT NULL,
+  `date_interview` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -149,27 +151,27 @@ CREATE TABLE `hireds` (
 -- Dumping data for table `hireds`
 --
 
-INSERT INTO `hireds` (`hired_id`, `homeowner_id`, `hired_user_id`, `requirements`, `status`, `created_at`) VALUES
-(11, 6, 14, 'Pagdala lang pagkaon nig ari nimo mga boanga mo!', 2, '2023-12-18 13:17:17'),
-(12, 6, 2, '', 1, '2023-12-19 13:14:04'),
-(13, 6, 14, '', 1, '2023-12-19 13:14:21'),
-(14, 6, 2, '', 1, '2023-12-19 13:14:31'),
-(15, 6, 2, '', 1, '2023-12-19 13:57:09'),
-(16, 31, 14, '12x14 pic \r\ntor\r\ncod\r\n50k \r\n', 2, '2023-12-20 12:31:02'),
-(17, 31, 32, 'imo nya utang ha ', 2, '2023-12-20 12:46:17'),
-(18, 31, 32, '', 2, '2023-12-20 12:51:04'),
-(19, 31, 32, '', 2, '2023-12-20 12:51:13'),
-(20, 31, 32, '', 2, '2023-12-20 12:52:31'),
-(21, 31, 14, '', 1, '2023-12-20 13:06:40'),
-(22, 31, 14, '', 1, '2023-12-20 13:11:56'),
-(23, 31, 14, '', 1, '2023-12-20 13:12:00'),
-(24, 31, 2, '', 1, '2023-12-20 13:16:55'),
-(25, 36, 2, '', 1, '2023-12-22 01:30:55'),
-(26, 1, 2, 'resume', 2, '2023-12-22 06:21:32'),
-(27, 39, 39, 'resume', 2, '2023-12-22 06:29:43'),
-(28, 46, 39, '', 1, '2023-12-22 06:50:32'),
-(29, 46, 2, '', 1, '2023-12-22 07:18:25'),
-(30, 47, 39, '', 1, '2023-12-22 15:15:10');
+INSERT INTO `hireds` (`hired_id`, `homeowner_id`, `hired_user_id`, `jobTitle`, `requirements`, `date_interview`, `status`, `created_at`) VALUES
+(11, 6, 14, '', 'Pagdala lang pagkaon nig ari nimo mga boanga mo!', '', 2, '2023-12-18 13:17:17'),
+(12, 6, 2, '', '', '', 1, '2023-12-19 13:14:04'),
+(13, 6, 10, '', '', '', 1, '2023-12-19 13:14:21'),
+(14, 10, 2, '', '', '', 1, '2023-12-19 13:14:31'),
+(15, 6, 2, '', '', '', 1, '2023-12-19 13:57:09'),
+(16, 31, 14, '', '12x14 pic \r\ntor\r\ncod\r\n50k \r\n', '', 2, '2023-12-20 12:31:02'),
+(17, 31, 32, '', 'imo nya utang ha ', '', 2, '2023-12-20 12:46:17'),
+(18, 31, 32, '', '', '', 2, '2023-12-20 12:51:04'),
+(19, 31, 32, '', '', '', 2, '2023-12-20 12:51:13'),
+(20, 31, 32, '', '', '', 2, '2023-12-20 12:52:31'),
+(21, 31, 14, '', '', '', 1, '2023-12-20 13:06:40'),
+(22, 31, 14, '', '', '', 1, '2023-12-20 13:11:56'),
+(23, 31, 14, '', '', '', 1, '2023-12-20 13:12:00'),
+(24, 31, 2, '', '', '', 1, '2023-12-20 13:16:55'),
+(25, 36, 2, '', '', '', 1, '2023-12-22 01:30:55'),
+(26, 1, 2, '', 'resume', '', 2, '2023-12-22 06:21:32'),
+(27, 39, 39, '', 'resume', '', 2, '2023-12-22 06:29:43'),
+(28, 46, 39, '', '', '', 1, '2023-12-22 06:50:32'),
+(29, 46, 2, '', '', '', 1, '2023-12-22 07:18:25'),
+(33, 33, 39, 'Tig hugas plato', '', '', 1, '2024-02-06 10:02:00');
 
 -- --------------------------------------------------------
 
@@ -184,6 +186,7 @@ CREATE TABLE `jobs` (
   `job_cat` varchar(125) NOT NULL,
   `job_descrip` text NOT NULL,
   `job_types` varchar(125) NOT NULL,
+  `exdate` text NOT NULL,
   `job_status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -194,21 +197,22 @@ CREATE TABLE `jobs` (
 -- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`job_id`, `user_id`, `job_title`, `job_cat`, `job_descrip`, `job_types`, `job_status`, `created_at`, `updated_at`, `location`) VALUES
-(2, 6, 'Babysetter', 'Baby Setter', 'Tig bantayg bata malamang', 'Full Time', 1, '2023-11-26 07:36:03', '2023-11-26 07:36:03', ''),
-(7, 6, 'Cleaner', 'Cleaner', 'I need a cleaner.', 'Part Time', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42', ''),
-(8, 6, 'I need a gardener.', 'Gardener', 'I need someone to gardener.', 'Full Time', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42', ''),
-(9, 6, 'Ambot', 'Breeder', 'This item is for breeding.', 'Part Time', 1, '2023-12-15 16:23:27', '2023-12-15 16:23:27', ''),
-(10, 29, 'bataybata', '', '-30k', 'Full Time', 1, '2023-12-16 03:51:35', '2023-12-16 03:51:35', ''),
-(11, 6, 'Cleaner', 'Cleaning my room', 'This is to clean a room.', 'Part Time', 1, '2023-12-17 13:35:31', '2023-12-17 13:35:31', ''),
-(12, 31, 'title', 'baby ko', 'cordova\r\n1M', 'Part Time', 1, '2023-12-20 12:33:50', '2023-12-20 12:33:50', ''),
-(13, 33, 'baby sister', '', '30k\r\ncordova', 'Full Time', 1, '2023-12-20 13:20:43', '2023-12-20 13:20:43', ''),
-(14, 39, 'cooking', '', '50k', 'Part Time', 1, '2023-12-22 06:31:00', '2023-12-22 06:31:00', ''),
-(15, 46, 'baby', '', '50k', 'Part Time', 1, '2023-12-22 06:54:58', '2023-12-22 06:54:58', ''),
-(16, 47, 'hi', 'hello', 'Hi hello', 'Full Time', 1, '2023-12-22 15:15:32', '2023-12-22 15:15:32', ''),
-(17, 47, 'Hello', 'world', 'Hhehehe', 'Full Time', 1, '2023-12-22 15:58:44', '2023-12-22 15:58:44', ''),
-(18, 47, '123', '123', '123', 'Part Time', 1, '2023-12-22 16:03:11', '2023-12-22 16:03:11', '31'),
-(19, 47, 'tig hugas', 'hugas', 'Tig hugas sa kabaw', 'Part Time', 1, '2023-12-22 16:03:37', '2023-12-22 16:03:37', 'cordova');
+INSERT INTO `jobs` (`job_id`, `user_id`, `job_title`, `job_cat`, `job_descrip`, `job_types`, `exdate`, `job_status`, `created_at`, `updated_at`, `location`) VALUES
+(2, 6, 'Babysetter', 'Baby Setter', 'Tig bantayg bata malamang', 'Full Time', '', 1, '2023-11-26 07:36:03', '2023-11-26 07:36:03', ''),
+(7, 6, 'Cleaner', 'Cleaner', 'I need a cleaner.', 'Part Time', '', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42', ''),
+(8, 6, 'I need a gardener.', 'Gardener', 'I need someone to gardener.', 'Full Time', '', 1, '2023-12-15 13:19:42', '2023-12-15 13:19:42', ''),
+(9, 6, 'Ambot', 'Breeder', 'This item is for breeding.', 'Part Time', '', 1, '2023-12-15 16:23:27', '2023-12-15 16:23:27', ''),
+(10, 29, 'bataybata', '', '-30k', 'Full Time', '', 1, '2023-12-16 03:51:35', '2023-12-16 03:51:35', ''),
+(11, 6, 'Cleaner', 'Cleaning my room', 'This is to clean a room.', 'Part Time', '', 1, '2023-12-17 13:35:31', '2023-12-17 13:35:31', ''),
+(12, 31, 'title', 'baby ko', 'cordova\r\n1M', 'Part Time', '', 1, '2023-12-20 12:33:50', '2023-12-20 12:33:50', ''),
+(13, 33, 'baby sister', '', '30k\r\ncordova', 'Full Time', '', 1, '2023-12-20 13:20:43', '2023-12-20 13:20:43', ''),
+(14, 39, 'cooking', '', '50k', 'Part Time', '', 1, '2023-12-22 06:31:00', '2023-12-22 06:31:00', ''),
+(15, 46, 'baby', '', '50k', 'Part Time', '', 1, '2023-12-22 06:54:58', '2023-12-22 06:54:58', ''),
+(16, 47, 'hi', 'hello', 'Hi hello', 'Full Time', '', 1, '2023-12-22 15:15:32', '2023-12-22 15:15:32', ''),
+(17, 47, 'Hello', 'world', 'Hhehehe', 'Full Time', '', 1, '2023-12-22 15:58:44', '2023-12-22 15:58:44', ''),
+(18, 47, '123', '123', '123', 'Part Time', '', 1, '2023-12-22 16:03:11', '2023-12-22 16:03:11', '31'),
+(19, 47, 'tig hugas', 'hugas', 'Tig hugas sa kabaw', 'Part Time', '', 1, '2023-12-22 16:03:37', '2023-12-22 16:03:37', 'cordova'),
+(20, 33, 'qwe', 'qwe', 'qwe', 'Part Time', '2024-02-09', 1, '2024-02-06 07:53:16', '2024-02-06 07:53:16', 'qwe');
 
 -- --------------------------------------------------------
 
@@ -300,6 +304,8 @@ CREATE TABLE `users` (
   `username` varchar(125) NOT NULL,
   `email` varchar(125) NOT NULL,
   `password` varchar(125) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `no_of_rating` int(11) NOT NULL,
   `picture` text NOT NULL DEFAULT 'default.png',
   `valid_id` text NOT NULL,
   `role` int(11) NOT NULL DEFAULT 1,
@@ -312,25 +318,25 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `username`, `email`, `password`, `picture`, `valid_id`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'george', 'alfeser', 'shiro', '123@123', '202cb962ac59075b964b07152d234b70', 'default.png', '', 3, 1, '2023-11-25 08:02:44', '2023-11-25 08:02:44'),
-(2, '123', '123', 'jd123', 'jd@gmail.com', '202cb962ac59075b964b07152d234b70', 'bedroom set of 4.jpg', '', 1, 1, '2023-11-26 09:16:34', '2023-11-26 09:16:34'),
-(6, 'Owner', 'Home', 'hom', 'homeowner@homeowner', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 1, '2023-11-25 09:11:53', '2023-11-25 09:11:53'),
-(10, '123', '123', '123', '123@12', '202cb962ac59075b964b07152d234b70', 'default.png', 'activity.PNG', 1, 1, '2023-11-26 09:26:57', '2023-11-26 09:26:57'),
-(33, 'glen', 'ranido', 'glenranido', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '22.jpg', 2, 1, '2023-12-20 13:18:49', '2023-12-20 13:18:49'),
-(34, 'glen ', 'cute', 'glen', 'glen@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 1, '2023-12-20 13:21:36', '2023-12-20 13:21:36'),
-(36, 'homShiro', 'oi', 'homshiro12', 'homshiro@gmail.com', '202cb962ac59075b964b07152d234b70', 'CALENDAR.PNG', 'carr.jpg', 2, 0, '2023-12-22 01:21:34', '2023-12-22 01:21:34'),
-(37, 'glen', 'ranido', 'glen123', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '23.PNG', 2, 1, '2023-12-22 06:20:14', '2023-12-22 06:20:14'),
-(38, 'mero', 'abano', 'jelmero123', 'jelmero@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '', 1, 0, '2023-12-22 06:24:38', '2023-12-22 06:24:38'),
-(39, 'kevin', 'casq', 'kevin123', 'kevin@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', 'first come first serve.PNG', 2, 1, '2023-12-22 06:27:57', '2023-12-22 06:27:57'),
-(40, 'johua', 'blase', 'blase', 'blase@gmail.com', '202cb962ac59075b964b07152d234b70', 'n.jpg', '3.jpg', 2, 1, '2023-12-22 06:35:12', '2023-12-22 06:35:12'),
-(41, 'glen', 'ranido', 'meo', 'meo@gmail.com', '202cb962ac59075b964b07152d234b70', 'default.png', '', 1, 0, '2023-12-22 06:36:04', '2023-12-22 06:36:04'),
-(42, 'quitay', 'cute', 'cute', 'cute@gmail.com', '202cb962ac59075b964b07152d234b70', 'kjhg.jpg', 'n.jpg', 2, 1, '2023-12-22 06:38:03', '2023-12-22 06:38:03'),
-(43, 'shinra', 'tense', 'tense', 'tense@gmail.com', '202cb962ac59075b964b07152d234b70', 'logo.png', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 1, '2023-12-22 06:43:02', '2023-12-22 06:43:02'),
-(44, 'meor', 'last', 'chan', 'chan@gmail.com', '202cb962ac59075b964b07152d234b70', '173472113_508180986867522_5999261301032980265_n.jpg', '', 1, 0, '2023-12-22 06:44:11', '2023-12-22 06:44:11'),
-(45, 'glen', 'ranido', 'bat', 'bat@gmail.com', '202cb962ac59075b964b07152d234b70', '311202075_1109981239642694_4928069177595602249_n.jpg', '', 1, 0, '2023-12-22 06:48:52', '2023-12-22 06:48:52'),
-(46, 'Shiro', 'Inoc', 'qwe', 'qwe', '202cb962ac59075b964b07152d234b70', '406810112_302821768801035_3765542810081729389_n.jpg', 'asd.jpg', 1, 1, '2023-12-22 06:49:45', '2023-12-22 06:49:45'),
-(47, 'Shiro', 'geo', 'shiroi', 'shir@gmail.com', '202cb962ac59075b964b07152d234b70', '406810112_302821768801035_3765542810081729389_n.jpg', 'Untitled video.mp4', 2, 1, '2023-12-22 14:59:52', '2023-12-22 14:59:52');
+INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `username`, `email`, `password`, `rating`, `no_of_rating`, `picture`, `valid_id`, `role`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'george', 'alfeser', 'shiro', 'c', '202cb962ac59075b964b07152d234b70', 0, 0, 'default.png', '', 3, 1, '2023-11-25 08:02:44', '2023-11-25 08:02:44'),
+(2, '123', '123', 'jd123', 'jd@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, 'bedroom set of 4.jpg', '', 1, 1, '2023-11-26 09:16:34', '2023-11-26 09:16:34'),
+(6, 'Owner', 'Home', 'hom', 'homeowner@homeowner', '202cb962ac59075b964b07152d234b70', 0, 0, '173472113_508180986867522_5999261301032980265_n.jpg', '173472113_508180986867522_5999261301032980265_n.jpg', 1, 2, '2023-11-25 09:11:53', '2023-11-25 09:11:53'),
+(10, '123', '123', '123', '123@12', '202cb962ac59075b964b07152d234b70', 0, 0, 'default.png', 'activity.PNG', 1, 1, '2023-11-26 09:26:57', '2023-11-26 09:26:57'),
+(33, 'glen', 'ranido', 'glenranido', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, '173472113_508180986867522_5999261301032980265_n.jpg', '22.jpg', 2, 2, '2023-12-20 13:18:49', '2023-12-20 13:18:49'),
+(34, 'glen ', 'cute', 'glen', 'glen@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, 'default.png', '', 1, 1, '2023-12-20 13:21:36', '2023-12-20 13:21:36'),
+(36, 'homShiro', 'oi', 'homshiro12', 'homshiro@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, 'CALENDAR.PNG', 'carr.jpg', 2, 0, '2023-12-22 01:21:34', '2023-12-22 01:21:34'),
+(37, 'glen', 'ranido', 'glen123', 'glenranido@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, '173472113_508180986867522_5999261301032980265_n.jpg', '23.PNG', 2, 1, '2023-12-22 06:20:14', '2023-12-22 06:20:14'),
+(38, 'mero', 'abano', 'jelmero123', 'jelmero@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, '173472113_508180986867522_5999261301032980265_n.jpg', '', 1, 0, '2023-12-22 06:24:38', '2023-12-22 06:24:38'),
+(39, 'kevin', 'casq', 'kevin123', 'kevin@gmail.com', '202cb962ac59075b964b07152d234b70', 11, 3, '173472113_508180986867522_5999261301032980265_n.jpg', 'first come first serve.PNG', 1, 1, '2023-12-22 06:27:57', '2023-12-22 06:27:57'),
+(40, 'johua', 'blase', 'blase', 'blase@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, 'n.jpg', '3.jpg', 2, 1, '2023-12-22 06:35:12', '2023-12-22 06:35:12'),
+(41, 'glen', 'ranido', 'meo', 'meo@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, 'default.png', '', 1, 0, '2023-12-22 06:36:04', '2023-12-22 06:36:04'),
+(42, 'quitay', 'cute', 'cute', 'cute@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, 'kjhg.jpg', 'n.jpg', 2, 1, '2023-12-22 06:38:03', '2023-12-22 06:38:03'),
+(43, 'shinra', 'tense', 'tense', 'tense@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, 'logo.png', '173472113_508180986867522_5999261301032980265_n.jpg', 2, 1, '2023-12-22 06:43:02', '2023-12-22 06:43:02'),
+(44, 'meor', 'last', 'chan', 'chan@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, '173472113_508180986867522_5999261301032980265_n.jpg', '', 1, 0, '2023-12-22 06:44:11', '2023-12-22 06:44:11'),
+(45, 'glen', 'ranido', 'bat', 'bat@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, '311202075_1109981239642694_4928069177595602249_n.jpg', '', 1, 0, '2023-12-22 06:48:52', '2023-12-22 06:48:52'),
+(46, 'Shiro', 'Inoc', 'qwe', 'qwe', '202cb962ac59075b964b07152d234b70', 0, 0, '406810112_302821768801035_3765542810081729389_n.jpg', 'asd.jpg', 1, 1, '2023-12-22 06:49:45', '2023-12-22 06:49:45'),
+(47, 'Shiro', 'geo', 'shiroi', 'shir@gmail.com', '202cb962ac59075b964b07152d234b70', 0, 0, '406810112_302821768801035_3765542810081729389_n.jpg', 'Untitled video.mp4', 2, 1, '2023-12-22 14:59:52', '2023-12-22 14:59:52');
 
 --
 -- Indexes for dumped tables
@@ -434,13 +440,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `hireds`
 --
 ALTER TABLE `hireds`
-  MODIFY `hired_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `hired_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `recommendations`
