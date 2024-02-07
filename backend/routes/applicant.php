@@ -21,11 +21,16 @@ function requiments()
     echo $applicant->requiments($_POST['id']);
 }
 
+function hireds()
+{
+    $homeowner = new applicant();
+    echo $homeowner->hireds($_SESSION['id']);
+}
+
 function applyJob()
 {
     $applicant = new applicant();
     echo $applicant->applyJob($_POST['id'], $_SESSION['id']);
-    
 }
 
 function updateProfile()
@@ -36,7 +41,7 @@ function updateProfile()
     if (isset($_FILES["picture"]["name"])) {
 
         $pictureLocation = $location . $_FILES["picture"]["name"];
-        if (move_uploaded_file($_FILES["picture"]["tmp_name"], $pictureLocation) ) {
+        if (move_uploaded_file($_FILES["picture"]["tmp_name"], $pictureLocation)) {
             $picture = $_FILES["picture"]["name"];
         }
     }

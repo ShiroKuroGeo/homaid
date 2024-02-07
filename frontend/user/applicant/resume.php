@@ -111,7 +111,12 @@
                             <span>My Profile</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="history.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php">
                             <i class="bi bi-box-arrow-right"></i>
@@ -235,4 +240,5 @@
 <script src="../../../middleware/vue/vue.3.js"></script>
 <script src="../../../middleware/vue/axios.js"></script>
 <script src="../../../middleware/applicant/applicant.js"></script>
+
 </html>

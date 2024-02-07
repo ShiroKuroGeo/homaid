@@ -38,7 +38,17 @@
 
     function hired(){
         $homeowner = new homeowner();
-        echo $homeowner->hired($_POST['id']);
+        echo $homeowner->hired($_POST['date'],  $_POST['id']);
+    }
+    
+    function interview(){
+        $homeowner = new homeowner();
+        echo $homeowner->interview($_POST['id']);
+    }
+    
+    function entryHired(){
+        $homeowner = new homeowner();
+        echo $homeowner->entryHired($_POST['id']);
     }
 
     function comment(){
@@ -73,7 +83,7 @@
     
     function storeJobs(){
         $homeowner = new homeowner();
-        echo $homeowner->storeJobs($_SESSION['id'],$_POST['jobTitle'],$_POST['jobCategory'],$_POST['jobDescrip'], $_POST['types'], $_POST['jobLocation']);
+        echo $homeowner->storeJobs($_SESSION['id'],$_POST['jobTitle'],$_POST['jobCategory'],$_POST['jobDescrip'], $_POST['types'], $_POST['jobLocation'], $_POST['exdate']);
     }
 
     function requirementsOfApplying(){
@@ -84,7 +94,23 @@
     function requirementsOfHired(){
         $homeowner = new homeowner();
 
-        echo $homeowner->requirementsOfHired($_POST['message'], $_POST['id']);
+        echo $homeowner->requirementsOfHired($_POST['message'], $_POST['id'], $_POST['jobTitle']);
+    }
+    
+    function doneJob(){
+        $homeowner = new homeowner();
+
+        echo $homeowner->doneJob($_POST['id'], $_POST['jobTitle']);
+    }
+    
+    function rateUser(){
+        $user = new homeowner();
+        echo $user->rateUser($_POST['rate'], $_POST['id']);
+    }
+
+    function getRating(){
+        $user = new homeowner();
+        echo $user->getRating($_POST['id']);
     }
 
 ?>

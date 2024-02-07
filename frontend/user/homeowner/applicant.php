@@ -76,6 +76,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="history.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -101,6 +107,7 @@
                                             <th scope="col">Image</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Interview Date</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -108,16 +115,43 @@
                                         <tr v-for="ha of hiredApplicants">
                                             <th scope="row"><img :src="'../../../assets/img/' +ha.picture" width="60" height="60" class="roundeds" alt=""></th>
                                             <td class="text-capitalize">{{ ha.lastname }}, {{ ha.firstname }}</td>
-                                            <td>{{ha.status == 2 ? 'Hired' : 'Pending'}}</td>
+                                            <td>{{ha.status}}</td>
+                                            <td>{{dateString(ha.date_interview) == 'Invalid Date' ? 'No Interview Date' : dateString(ha.date_interview) }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-md me-1" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq">View </button>
-                                                <button type="button" class="btn btn-primary btn-md me-1" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq">Send </button>
-                                                <button type="button" class="btn btn-primary btn-md" @click="hired(ha.hired_id)" :disabled="ha.status != 1">{{ ha.status != 1 ? 'Hired' : 'Hire' }}</button>
+                                                <!-- <button type="button" class="btn btn-primary btn-md me-1" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq">View </button> -->
+                                                <button type="button" :class="ha.status != 1 ? 'btn btn-primary btn-md ms-1' : 'btn btn-primary btn-md ms-1 visually-hidden'" @click="sendHiredReq(ha.hired_id)" data-bs-toggle="modal" data-bs-target="#sendReq">Send </button>
+                                                <button type="button" :class="ha.status == 2 ? 'ms-1 btn btn-primary btn-md' : 'btn btn-primary btn-md visually-hidden'" data-bs-toggle="modal" data-bs-target="#getDoneJobID" @click="getDoneJob(ha.hired_id)">Done</button>
                                                 <a class="btn btn-md btn-primary ms-1" :href="'/homaid/frontend/chat/chatroom.php?id='+ha.user_id"><i class="bi bi-chat"></i></a>
+                                                <button type="button" :class="ha.status == 1 ? 'btn btn-primary btn-md ms-1' : 'visually-hidden'" @click="interview(ha.hired_id)">Approve</button>
+                                                <input type="date" id="noData" v-model="date" :class="ha.status == 3 ? 'form-control col-6' : 'visually-hidden'">
+                                                <button type="button" :class="ha.status == 3 ? 'btn btn-primary btn-md ms-1' : 'visually-hidden'" @click="hired(ha.hired_id)">Interview</button>
+                                                <button type="button" :class="ha.status == 5 ? 'btn btn-primary btn-md ms-1' : 'visually-hidden'" @click="entryHired(ha.hired_id)">Hired</button>
+                                                <button type="button" :class="ha.status == 2 ? 'btn btn-primary btn-md ms-1' : 'btn btn-primary btn-md ms-1 visually-hidden'" @click="entryHired(ha.hired_id)" :disabled="ha.status == 2">Hired</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div class="modal fade" id="getDoneJobID" tabindex="-1" aria-labelledby="getDoneJobIDLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-dark" id="getDoneJobIDLabel">Job Done</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label for="inputPassword5" class="form-label text-dark">Job Title</label>
+                                                <input type="text" id="inputPassword5" v-model="jobTitle" class="form-control" aria-describedby="passwordHelpBlock">
+                                                <div id="passwordHelpBlock" class="form-text">
+                                                    What is the job in this maid do?
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" @click="doneJob(getJobDoneId)">Job Done</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="modal fade" id="sendReq" tabindex="-1" aria-labelledby="sendReqLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered text-dark">
                                         <div class="modal-content  bg-light">
@@ -128,8 +162,7 @@
                                             <div class="modal-body">
                                                 <div class="col-12 text-start p-2 rounded">
                                                     <div class="mb-3">
-                                                        <label class="my-4">Message the requirements of your job specifications
-                                                        </label>
+                                                        <label class="my-4">Message the requirements of your job specifications</label>
                                                         <textarea class="form-control" v-model="messsageHired" cols="30" rows="10" placeholder="Enter message"></textarea>
                                                     </div>
                                                     <button type="submit" class="float-end px-4 btn btn-primary col-5" @click="requirementsOfHired(idHireReq)">Submit</button>

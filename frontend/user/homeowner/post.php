@@ -76,6 +76,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="history.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -117,6 +123,12 @@
                                                 <div class="form-outline">
                                                     <label class="form-label" for="lastName">Job Description</label>
                                                     <textarea v-model="jobDescrip" cols="20" rows="5" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="lastName">Expected Date</label>
+                                                    <input type="date" name="exdate" id="exdate" v-model="exdate" class="form-control">
                                                 </div>
                                             </div>
                                         </div>

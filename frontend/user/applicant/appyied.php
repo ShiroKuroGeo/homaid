@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -90,6 +91,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="history.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -130,8 +137,9 @@
                                 <tr v-for="(ap, index) of applicantUsers">
                                     <th scope="row">{{1+index++}}</th>
                                     <td class="text-center">{{ap.hfirstname}}, {{ap.hlastname}}</td>
-                                    <td class="text-center">{{ap.status == 1 ? 'Hired' : ap.status == 2 ? 'Pending' : 'Decline'}}</td>
+                                    <td class="text-center">{{ap.status == 1 ? 'Waiting for approve' : ap.status == 2 ? 'Hired' : ap.status == 3 ? 'Approved' : ap.status == 5 ? 'Interview' : 'Decline'}}</td>
                                     <td class="text-center">{{ap.created_at}}</td>
+                                    <td class="text-center">{{ ap }}</td>
                                     <td class="text-center">
                                         <a :href="'chat.php?appli='+ap.appl_id" class="text-primary">View</a>
                                     </td>
@@ -153,15 +161,19 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Home Owner</th>
+                                    <th scope="col">Job Description</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Interview Date</th>
                                     <th scope="col">View Requirements</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(ap, index) of getHireRequiments">
                                     <th scope="row">{{1+index++}}</th>
-                                    <td class="text-center">{{ap.houFirstname}}, {{ap.houLastname}}</td>
-                                    <td class="text-center">{{ap.status == 2 ? 'Hired' : 'Pending'}}</td>
+                                    <td class="text-center">{{ap.firstname}}, {{ap.lastname}}</td>
+                                    <td class="text-center">{{ap.jobTitle}}</td>
+                                    <td class="text-center">{{ap.status == 1 ? 'Waiting for approve' : ap.status == 2 ? 'Hired' : ap.status == 3 ? 'Approved' : ap.status == 5 ? 'Interview' : 'Decline'}}</td>
+                                    <td class="text-center">{{ap.date_interview == '' ? 'No Date Release' : ap.date_interview}}</td>
                                     <td class="text-center">{{ap.requirements}}</td>
                                 </tr>
                             </tbody>

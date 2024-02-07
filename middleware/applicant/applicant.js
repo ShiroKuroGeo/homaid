@@ -6,6 +6,7 @@ createApp({
             job: [],
             categories: [],
             selectedTypes: [],
+            hiredApplicants: [],
             selectedCategory: [],
             applicantUsers: [],
             getHireRequiments: [],
@@ -93,7 +94,9 @@ createApp({
                             appl_id: v.appl_id,
                             hfirstname: v.hfirstname,
                             hlastname: v.hlastname,
+                            jobTitle: v.jobTitle,
                             plastname: v.plastname,
+                            date_interview: v.date_interview,
                             status: v.status,
                             created_at: v.created_at,
                         });
@@ -112,9 +115,12 @@ createApp({
                         vue.getHireRequiments.push({
                             firstname: v.firstname,
                             lastname: v.lastname,
-                            houFirstname: v.houFirstname,
-                            houLastname: v.houLastname,
                             requirements: v.requirements,
+                            jobTitle: v.jobTitle,
+                            hired_user_id: v.hired_user_id,
+                            homeowner_id: v.homeowner_id,
+                            hired_id: v.hired_id,
+                            date_interview: v.date_interview,
                             status: v.status,
                         });
                     }
@@ -235,6 +241,7 @@ createApp({
                             user_id: v.user_id,
                             job_title: v.job_title,
                             job_cat: v.job_cat,
+                            exdate: v.exdate,
                             location: v.location,
                             picture: v.picture,
                             job_types: v.job_types,
@@ -307,6 +314,37 @@ createApp({
                     }
                 });
         },
+        dateString: function (date) {
+            var originalDate = new Date(date);
+            var formattedDate = originalDate.toDateString();
+            return formattedDate;
+        },
+        getHistory: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "hireds");
+            axios.post('../../../backend/routes/applicant.php', data)
+                .then(function (r) {
+                    vue.hiredApplicants = [];
+                    for (var v of r.data) {
+                        if (v.status == 10) {
+                            vue.hiredApplicants.push({
+                                hired_id: v.hired_id,
+                                jobTitle: v.jobTitle,
+                                homeowner_id: v.homeowner_id,
+                                hired_user_id: v.hired_user_id,
+                                created_at: v.created_at,
+                                user_id: v.user_id,
+                                firstname: v.firstname,
+                                fullname: v.fullname,
+                                lastname: v.lastname,
+                                picture: v.picture,
+                                status: v.status,
+                            })
+                        }
+                    }
+                });
+        }
     },
     created: function () {
         this.jobs();
@@ -318,5 +356,6 @@ createApp({
         this.getTypesSelected();
         this.getRequimentsMessage();
         this.getApplicantUsers();
+        this.getHistory();
     }
 }).mount('#homeaid-applicant')

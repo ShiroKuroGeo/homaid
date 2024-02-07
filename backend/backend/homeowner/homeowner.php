@@ -8,6 +8,16 @@ class homeowner
         return $this->applicantsFunction();
     }
 
+    public function rateUser($rate, $id)
+    {
+        return $this->rateUserFunction($rate, $id);
+    }
+
+    public function getRating($id)
+    {
+        return $this->getRatingFunction($id);
+    }
+
     public function applicantsProfile($id)
     {
         return $this->applicantsProfileFunction($id);
@@ -28,9 +38,24 @@ class homeowner
         return $this->updateApplicantApplyingFunction($id);
     }
 
-    public function hired($uid)
+    public function hired($date, $uid)
     {
-        return $this->hiredFunction($uid);
+        return $this->hiredFunction($date, $uid);
+    }
+
+    public function entryHired($uid)
+    {
+        return $this->entryHiredFunction($uid);
+    }
+
+    public function interview($uid)
+    {
+        return $this->interviewFunction($uid);
+    }
+
+    public function doneJob($uid, $jobTitle)
+    {
+        return $this->doneJobFunction($uid, $jobTitle);
     }
 
     public function profileDetails($id)
@@ -63,14 +88,14 @@ class homeowner
         return $this->commentFunction($uid, $comID, $comment);
     }
 
-    public function requirementsOfHired($mes, $id)
+    public function requirementsOfHired($mes, $id, $jobTitle)
     {
-        return $this->requirementsOfHiredFunction($mes, $id);
+        return $this->requirementsOfHiredFunction($mes, $id, $jobTitle);
     }
 
-    public function storeJobs($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location)
+    public function storeJobs($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location, $exdate)
     {
-        return $this->storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location);
+        return $this->storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location, $exdate);
     }
 
     public function hireds($id)
@@ -118,7 +143,7 @@ class homeowner
                     } else {
                         return 400;
                     }
-                }else{
+                } else {
                     return 401;
                 }
             } else {
@@ -129,13 +154,13 @@ class homeowner
         }
     }
 
-    private function storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location)
+    private function storeJobsFunction($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location, $exdate)
     {
         try {
             $db = new Database();
             if ($db->getStatus()) {
                 $stmt = $db->getCon()->prepare($this->storeJobsQuery());
-                $stmt->execute(array($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location));
+                $stmt->execute(array($id, $jobTitle, $jobCategory, $jobDescrip, $types, $location, $exdate));
                 $result = $stmt->fetch();
 
                 if (!$result) {
@@ -151,14 +176,103 @@ class homeowner
         }
     }
 
-    private function hiredFunction($uid)
+    private function hiredFunction($date, $uid)
     {
         try {
             $db = new Database();
             if ($db->getStatus()) {
                 $stmt = $db->getCon()->prepare($this->hiredQuery());
+                $stmt->execute(array($date, $uid));
+                $result = $stmt->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 400;
+                }
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
+    private function entryHiredFunction($uid)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->entryHiredQuery());
                 $stmt->execute(array($uid));
                 $result = $stmt->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 400;
+                }
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
+    private function interviewFunction($uid)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->interviewQuery());
+                $stmt->execute(array($uid));
+                $result = $stmt->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 400;
+                }
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
+    private function doneJobFunction($uid, $jobTitle)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->doneJobQuery());
+                $stmt->execute(array($jobTitle, $uid));
+                $result = $stmt->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 400;
+                }
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
+    private function rateUserFunction($rate, $id)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->rateUserQuery());
+                $stmt->execute(array($rate, $id));
+                $result = $stmt->fetch();
+                $db->closeConnection();
 
                 if (!$result) {
                     return 200;
@@ -239,13 +353,13 @@ class homeowner
         }
     }
 
-    private function requirementsOfHiredFunction($mes, $id)
+    private function requirementsOfHiredFunction($mes, $id, $jobTitle)
     {
         try {
             $db = new Database();
             if ($db->getStatus()) {
                 $stmt = $db->getCon()->prepare($this->requirementsOfHiredQuery());
-                $stmt->execute(array($mes, $id));
+                $stmt->execute(array($mes, $id, $jobTitle));
                 $result = $stmt->fetch();
 
                 if (!$result) {
@@ -270,6 +384,23 @@ class homeowner
                 $stmt->execute(array($id));
                 $result = $stmt->fetchAll();
                 return json_encode($result);
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
+    private function getRatingFunction($id)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->getRatingQuery());
+                $stmt->execute(array($id));
+                $result = $stmt->fetchColumn();
+                return $result;
             } else {
                 return "NoDatabaseConnection";
             }
@@ -382,7 +513,7 @@ class homeowner
 
     private function applicantsQuery()
     {
-        return "SELECT a.appli_id, a.picture, a.age, a.skills, a.status, a.created_at, a.updated_at, u.firstname, u.lastname, u.user_id FROM `applicants` AS a INNER JOIN `users` AS u ON a.user_id = u.user_id";
+        return "SELECT a.appli_id, a.picture, a.age, a.skills, a.status, a.created_at, u.rating, u.no_of_rating, a.updated_at, u.firstname, u.lastname, u.user_id FROM `applicants` AS a INNER JOIN `users` AS u ON a.user_id = u.user_id";
     }
 
     private function applicantsProfileQuery()
@@ -407,7 +538,22 @@ class homeowner
 
     private function hiredQuery()
     {
+        return "UPDATE hireds SET `status` = 5, `date_interview` = ? WHERE `hired_id` = ?";
+    }
+
+    private function entryHiredQuery()
+    {
         return "UPDATE hireds SET `status` = 2 WHERE `hired_id` = ?";
+    }
+
+    private function interviewQuery()
+    {
+        return "UPDATE hireds SET `status` = 3 WHERE `hired_id` = ?";
+    }
+
+    private function doneJobQuery()
+    {
+        return "UPDATE hireds SET `status` = 10, `jobTitle` = ? WHERE `hired_id` = ?";
     }
 
     private function commentQuery()
@@ -422,7 +568,7 @@ class homeowner
 
     private function storeJobsQuery()
     {
-        return "INSERT INTO `jobs`(`user_id`, `job_title`, `job_cat`, `job_descrip`,`job_types`,`location`) VALUES (?,?,?,?,?,?)";
+        return "INSERT INTO `jobs`(`user_id`, `job_title`, `job_cat`, `job_descrip`,`job_types`,`location`, `exdate`) VALUES (?,?,?,?,?,?,?)";
     }
 
     private function profileDetailsQuery()
@@ -432,7 +578,7 @@ class homeowner
 
     private function jobPostedDetailsQuery()
     {
-        return "SELECT j.`job_id`, j.`user_id`, j.`job_title`, j.`job_cat`, j.`job_descrip`, j.`job_status`, j.`created_at`, j.`updated_at`, u.picture FROM `jobs` AS j INNER JOIN `users` AS u ON j.user_id = u.user_id WHERE j.`user_id` = ?";
+        return "SELECT j.`job_id`, j.`user_id`, j.`job_title`, j.`job_cat`, j.`job_descrip`, j.`job_status`, j.`created_at`, j.`updated_at`, j.`exdate` , u.picture FROM `jobs` AS j INNER JOIN `users` AS u ON j.user_id = u.user_id WHERE j.`user_id` = ?";
     }
 
     private function applicantApplyingQuery()
@@ -452,11 +598,20 @@ class homeowner
 
     private function requirementsOfHiredQuery()
     {
-        return "UPDATE `hireds` SET `requirements`= ? WHERE `hired_id` = ?";
+        return "UPDATE `hireds` SET `requirements`= ? AND `jobTitle` = ? WHERE `hired_id` = ?";
     }
 
     private function checkIfQueryIsOkayQuery()
     {
         return "SELECT * FROM `hireds` WHERE `homeowner_id` = ? AND `hired_user_id` = ?";
+    }
+
+    private function rateUserQuery()
+    {
+        return 'UPDATE `users` SET `rating` = `rating` + ?, `no_of_rating` = `no_of_rating` + 1 WHERE `user_id` = ?';
+    }
+
+    private function getRatingQuery(){
+        return 'SELECT `rating` FROM `users` WHERE `user_id` = ?';
     }
 }

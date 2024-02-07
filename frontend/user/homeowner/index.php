@@ -77,6 +77,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="history.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -103,7 +109,7 @@
                                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body text-start">
+                            <div class="modal-body text-start row">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Job Title</label>
                                     <input type="text" class="form-control" v-model="jobTitle">
@@ -112,11 +118,11 @@
                                     <label for="exampleInputPassword1" class="form-label">Job Category</label>
                                     <input type="text" class="form-control" v-model="jobCategory">
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 col-6">
                                     <label for="exampleInputPassword1" class="form-label">Job Location</label>
                                     <input type="text" class="form-control" v-model="joblocation">
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 col-6">
                                     <label for="exampleInputPassword1" class="form-label">Job Types</label>
                                     <select v-model="types" class="form-control">
                                         <option value="" selected hidden>Select Job Types</option>
@@ -127,6 +133,13 @@
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Job Description</label>
                                     <textarea v-model="jobDescrip" cols="30" rows="4" class="form-control"></textarea>
+                                </div>
+
+                                <div class="col-md-12 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="lastName">Expected Date</label>
+                                        <input type="date" name="exdate" id="exdate" v-model="exdate" class="form-control">
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -167,6 +180,7 @@
                                 <div class="member-info">
                                     <h4 class="text-capitalize">{{ap.lastname}}, {{ap.firstname}}</h4>
                                     <span class="text-capitalize">{{ap.age}}</span>
+                                    <span class="text-capitalize">Rate: {{ (ap.rating / (ap.no_of_rating * 5)) * 100 }}%</span>
                                     <span class="text-capitalize">- {{ap.skills}}.</span>
                                 </div>
                             </div>

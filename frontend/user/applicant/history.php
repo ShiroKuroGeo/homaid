@@ -113,14 +113,6 @@
                         <h2>We are team of talented digital marketers</h2>
                     </div>
                 </div>
-                <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="col-xl-2 col-md-4">
-                        <div class="icon-box">
-                            <i class="ri-store-line"></i>
-                            <h3><a href="#"><?php echo $_GET['category'] ?></a></h3>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <main id="main">
@@ -128,49 +120,31 @@
                 <div class="container" data-aos="fade-up">
                     <div class="section-title">
                         <h2>Maids</h2>
-                        <p>Check Maids</p>
+                        <p>My Jobs History</p>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 rounded" v-for="u of selectedCategory">
-                            <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member-img">
-                                    <div class="text-center">
-                                        <img :src="'/homaid/assets/img/'+ u.picture" class="img-fluid" width="250" alt="">
-                                    </div>
-                                    <div class="social">
-                                        <a :href="'/homaid/frontend/chat/chatroom.php?id='+u.user_id" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User"><i class="bi bi-chat"></i></a>
-                                        <a href="#" @click="apply(u.job_id)" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-                                        <a type="button" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Report Users" data-bs-content="Report Users">
-                                            <i class="bi bi-exclamation-circle" @click="getUserId(u.user_id)" data-bs-toggle="modal" data-bs-target="#reportUserasd"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="member-info">
-                                    <h4 class="text-capitalize">{{u.firstname}}</h4>
-                                    Job Title: <span class="text-capitalize">{{u.job_title}}</span>
-                                    Job Types: <span class="text-capitalize">{{u.job_types}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="reportUserasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Report this person</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to report this user? <br>
-                                        Reason:
-                                        <textarea v-model="reasonOfReport" cols="30" rows="3" class="form-control"></textarea>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" @click="reportUsers(userIdes)">Report</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Home Owner</th>
+                                    <th scope="col">Job Title</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(ap, index) of hiredApplicants">
+                                    <th scope="row">{{1+index++}}</th>
+                                    <td>{{ap.lastname}}, {{ap.firstname}}</td>
+                                    <td>{{ ap.jobTitle == '' ? 'Unknown' : ap.jobTitle }}</td>
+                                    <td>Done</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">Rate Home Owner</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>

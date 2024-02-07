@@ -74,7 +74,6 @@ class users
                 $role = null;
 
                 while ($row = $stmt->fetch()) {
-
                     $role = $row['role'];
                     $status = $row['status'];
                     $_SESSION['id'] = $row['user_id'];
@@ -86,6 +85,7 @@ class users
                 }else{
                     return $role;
                 }
+
             } else {
                 return "NoDatabaseConnection";
             }
@@ -108,4 +108,5 @@ class users
     {
         return "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
     }
+
 }

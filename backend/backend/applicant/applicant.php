@@ -1,6 +1,7 @@
 <?php
 include('../Database.php');
-class applicant {
+class applicant
+{
     public function jobs()
     {
         return $this->jobsFunction();
@@ -10,10 +11,15 @@ class applicant {
     {
         return $this->reportUsersFunction($id, $reason, $usid);
     }
-    
+
     public function updateProfile($picture, $fn, $ln, $id)
     {
         return $this->updateProfileFunction($picture, $fn, $ln, $id);
+    }
+
+    public function hireds($id)
+    {
+        return $this->hiredsFunction($id);
     }
 
     public function requiments($id)
@@ -49,7 +55,8 @@ class applicant {
         return $this->storeApplicationFunction($id, $fn, $age, $skills);
     }
 
-    private function jobsFunction(){
+    private function jobsFunction()
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -64,8 +71,9 @@ class applicant {
             return $th;
         }
     }
-    
-    private function requimentsFunction($id){
+
+    private function requimentsFunction($id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -81,7 +89,8 @@ class applicant {
         }
     }
 
-    private function userLoginFunction($id){
+    private function userLoginFunction($id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -97,7 +106,8 @@ class applicant {
         }
     }
 
-    private function applicantUsersFunction($id){
+    private function applicantUsersFunction($id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -113,7 +123,8 @@ class applicant {
         }
     }
 
-    private function hireRequimentsFunction($id){
+    private function hireRequimentsFunction($id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -129,7 +140,8 @@ class applicant {
         }
     }
 
-    private function myApplicationFunction($id){
+    private function myApplicationFunction($id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -145,7 +157,8 @@ class applicant {
         }
     }
 
-    private function applyJobFunction($id, $user_id){
+    private function applyJobFunction($id, $user_id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -160,16 +173,15 @@ class applicant {
                     $stmt = $db->getCon()->prepare($this->applyJobQuery());
                     $stmt->execute(array($id, $user_id));
                     $result = $stmt->fetch();
-    
-                    if(!$result){
+
+                    if (!$result) {
                         return 200;
-                    }else{
+                    } else {
                         return 400;
                     }
                 } else {
                     return 401;
                 }
-
             } else {
                 return "NoDatabaseConnection";
             }
@@ -177,8 +189,9 @@ class applicant {
             return $th;
         }
     }
-    
-    private function storeApplicationFunction($id, $fn, $age, $skills){
+
+    private function storeApplicationFunction($id, $fn, $age, $skills)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -187,12 +200,11 @@ class applicant {
                 $stmt->execute(array($id, $fn, $age, $skills, $id));
                 $result = $stmt->fetch();
 
-                if(!$result){
+                if (!$result) {
                     return 200;
-                }else{
+                } else {
                     return 400;
                 }
-
             } else {
                 return "NoDatabaseConnection";
             }
@@ -200,8 +212,9 @@ class applicant {
             return $th;
         }
     }
-    
-    private function updateProfileFunction($picture, $fn, $ln, $id){
+
+    private function updateProfileFunction($picture, $fn, $ln, $id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -210,12 +223,11 @@ class applicant {
                 $stmt->execute(array($picture, $fn, $ln, $id));
                 $result = $stmt->fetch();
 
-                if(!$result){
+                if (!$result) {
                     return 200;
-                }else{
+                } else {
                     return 400;
                 }
-
             } else {
                 return "NoDatabaseConnection";
             }
@@ -223,8 +235,9 @@ class applicant {
             return $th;
         }
     }
-    
-    private function reportUsersFunction($id, $reason, $usid){
+
+    private function reportUsersFunction($id, $reason, $usid)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -233,12 +246,11 @@ class applicant {
                 $stmt->execute(array($id, $reason, $usid));
                 $result = $stmt->fetch();
 
-                if(!$result){
+                if (!$result) {
                     return 200;
-                }else{
+                } else {
                     return 400;
                 }
-
             } else {
                 return "NoDatabaseConnection";
             }
@@ -246,8 +258,9 @@ class applicant {
             return $th;
         }
     }
-    
-    private function deleteApplicationFunction($id){
+
+    private function deleteApplicationFunction($id)
+    {
         try {
             $db = new Database();
             if ($db->getStatus()) {
@@ -256,12 +269,11 @@ class applicant {
                 $stmt->execute(array($id));
                 $result = $stmt->fetch();
 
-                if(!$result){
+                if (!$result) {
                     return 200;
-                }else{
+                } else {
                     return 400;
                 }
-
             } else {
                 return "NoDatabaseConnection";
             }
@@ -270,50 +282,89 @@ class applicant {
         }
     }
 
-    private function jobsQuery(){
+    private function hiredsFunction($id)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->hiredsQuery());
+                $stmt->execute(array($id));
+                $result = $stmt->fetchAll();
+                return json_encode($result);
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
+    private function jobsQuery()
+    {
         return "SELECT j.*, u.picture, u.firstname FROM `jobs` as j INNER JOIN `users` AS u ON j.user_id = u.user_id";
     }
 
-    private function applyJobQuery(){
+    private function applyJobQuery()
+    {
         return "INSERT INTO `applyingjobs`(`homeowner_id`, `user_id`) VALUES (?,?)";
     }
-    private function userLoginQuery(){
+    private function userLoginQuery()
+    {
         return "SELECT `user_id`, `firstname`, `lastname`, `username`, `email`, `password`, `picture`, `valid_id`, `role`, `status`, `created_at`, `updated_at` FROM `users` WHERE `user_id` = ?";
     }
 
-    private function applicantUsersQuery(){
-        return "SELECT ap.appl_id, ap.status, ap.created_at, ap.updated_at, apli.firstname as afirstname, apli.lastname as plastname, hom.firstname as hfirstname, hom.lastname as hlastname FROM `applyingjobs` AS ap INNER JOIN `users` as apli INNER JOIN `users` AS hom ON ap.homeowner_id = hom.user_id AND ap.user_id = apli.user_id WHERE apli.user_id = ?";
+    private function applicantUsersQuery()
+    {
+        return "SELECT ap.appl_id, ap.status , ap.created_at, ap.updated_at, apli.firstname as afirstname, apli.lastname as plastname, hom.firstname as hfirstname, hom.lastname as hlastname FROM `applyingjobs` AS ap INNER JOIN `users` as apli INNER JOIN `users` AS hom ON ap.homeowner_id = hom.user_id AND ap.user_id = apli.user_id WHERE apli.user_id = ?";
     }
 
-    private function checkIfQueryIsOkayQuery(){
+    private function checkIfQueryIsOkayQuery()
+    {
         return "SELECT * FROM `applyingjobs` WHERE `user_id` = ? AND `homeowner_id` = ?";
     }
 
-    private function storeApplicationQuery(){
+    private function storeApplicationQuery()
+    {
         return "INSERT INTO `applicants`(`picture`, `user_id`, `fullname`, `age`, `skills`) SELECT `users`.`picture`,?,?,?,? FROM `users` WHERE `users`.`user_id` = ?";
     }
-    private function requimentsQuery(){
+    private function requimentsQuery()
+    {
         return "SELECT r.message, r.requirement  FROM `requirement` AS r INNER JOIN `applyingjobs` AS a WHERE r.apl_id = ?";
     }
 
-    private function hireRequimentsQuery(){
-        return "SELECT h.*, hiu.firstname, hiu.lastname, hou.firstname AS houFirstname, hou.lastname AS houLastname FROM `hireds` AS h INNER JOIN `users` AS hiu INNER JOIN `users` AS hou ON h.homeowner_id = hou.user_id AND h.hired_user_id = hiu.user_id WHERE h.hired_user_id = ?";
+    private function hireRequimentsQuery()
+    {
+        return "SELECT hireds.*, 
+        users.firstname, 
+        users.lastname, 
+        hireds.status
+ FROM hireds 
+ INNER JOIN users ON hireds.homeowner_id = users.user_id 
+ WHERE hireds.hired_user_id = ?";
     }
 
-    private function myApplicationQuery(){
+    private function myApplicationQuery()
+    {
         return "SELECT `appli_id`, `user_id`, `picture`, `fullname`, `age`, `skills`, `status`, `created_at`, `updated_at` FROM `applicants` WHERE `user_id` = ?";
     }
 
-    private function deleteApplicationQuery(){
+    private function deleteApplicationQuery()
+    {
         return "DELETE FROM `applicants` WHERE `appli_id` = ?";
     }
 
-    private function reportUsersQuery(){
+    private function reportUsersQuery()
+    {
         return "INSERT INTO `reports`(`user_id`, `reason`, `reported_id`) VALUES (?,?,?)";
     }
 
-    public function updateProfileQuery(){
+    public function updateProfileQuery()
+    {
         return "UPDATE `users` SET `picture` = ?, `firstname` = ?, `lastname` = ? WHERE `user_id` = ?";
     }
-    
+
+    private function hiredsQuery()
+    {
+        return "SELECT *, h.status FROM `hireds` AS h INNER JOIN `users` AS u ON h.hired_user_id = u.user_id WHERE h.hired_user_id = ?;";
+    }
 }

@@ -90,56 +90,83 @@
                 </div>
             </div>
         </header>
+
+
         <section id="hero" class="d-flex align-items-center justify-content-center">
             <div class="container" data-aos="fade-up">
                 <div class="row">
                     <div class="col-lg-12">
 
-                        <div class="card bg-dark text-white rounded">
+                        <div class="card bg-light text-white rounded">
                             <div class="card-body">
-                                <h5 class="card-title">APPLICANTS</h5>
+                                <h5 class="card-title text-dark">History</h5>
+                                <!-- Table with stripped rows -->
                                 <table class="table joblist text-white">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Name</th>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Home Owner</th>
+                                            <th scope="col">Job Title</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Actions</th>
+                                            <th scope="col">Rating</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="ha of applyingJobs">
-                                            <th scope="row"><img :src="'../../../assets/img/' +ha.picture" width="60" height="60" class="roundeds" alt=""></th>
-                                            <td class="text-capitalize">{{ha.lastname}}, {{ha.firstname}}</td>
-                                            <td>{{ha.status == 1 ? 'Hired' : ha.status == 2 ? 'Pending' : 'Decline'}}</td>
+                                        <tr v-for="(ap, index) of historyHiredApplicants">
+                                            <th scope="row">{{1+index++}}</th>
+                                            <td>{{ap.lastname}}, {{ap.firstname}}</td>
+                                            <td>{{ ap.jobTitle == '' ? 'Unknown' : ap.jobTitle }}</td>
+                                            <td>Done</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-md  me-1 px-3" @click="sendDatas(ha.appl_id, ha.user_id)" data-bs-toggle="modal" data-bs-target="#sendReq" :disabled="ha.status != 1">Send Requirements</button>
-                                                <button type="button" class="btn btn-primary btn-md px-3" @click="updateApplicantApplying(ha.user_id)" :disabled="isDisabled(ha.status)">Hired</button>
-                                                <a class="btn btn-md btn-primary ms-1" :href="'/homaid/frontend/chat/chatroom.php?id='+ha.user_id"><i class="bi bi-chat"></i></a>
+                                                <button class="btn btn-sm btn-primary" @click="getDoneJob(ap.hired_user_id)" data-bs-toggle="modal" data-bs-target="#sendrate">Rate Home Owner</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="sendReq" tabindex="-1" aria-labelledby="sendReqLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content  bg-light">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="sendReqLabel">Send Requirements</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="col-12 text-start p-2 rounded">
-                                    <div class="mb-3">
-                                        <label class="my-4">Message the requirements of your job specifications
-                                        </label>
-                                        <textarea class="form-control" v-model="messsage" cols="30" rows="10" placeholder="Enter message"></textarea>
-                                        <input type="text" v-model="">
+                                <div class="modal fade" id="sendrate" tabindex="-1" aria-labelledby="sendrateLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered text-dark">
+                                        <div class="modal-content  bg-light">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="sendrateLabel">Send Requirements</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-12 text-start p-2 rounded">
+                                                    <div class="mb-3">
+                                                        <label class="my-4">Rate User</label> <br>  
+                                                        <select v-model="rate" class="form-select">
+                                                            <option value="0" selected hidden>Rate User</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="float-end px-4 btn btn-primary col-5" @click="rateUser(getJobDoneId)">Send Rate</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="float-end px-4 btn btn-primary col-5" @click="requirementsOfApplying(appl_ids, user_ids)">Submit</button>
+                                </div>
+                                <div class="modal fade" id="sendReq" tabindex="-1" aria-labelledby="sendReqLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered text-dark">
+                                        <div class="modal-content  bg-light">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="sendReqLabel">Send Requirements</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-12 text-start p-2 rounded">
+                                                    <div class="mb-3">
+                                                        <label class="my-4">Message the requirements of your job specifications</label>
+                                                        <textarea class="form-control" v-model="messsageHired" cols="30" rows="10" placeholder="Enter message"></textarea>
+                                                    </div>
+                                                    <button type="submit" class="float-end px-4 btn btn-primary col-5" @click="requirementsOfHired(idHireReq)">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -147,6 +174,7 @@
                 </div>
         </section>
     </div>
+
 
 
     <!-- footer -->

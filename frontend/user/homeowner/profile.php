@@ -73,6 +73,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center text-white" href="history.php">
+                            <i class="bi bi-chat me-3"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
                             <i class="bi bi-box-arrow-right me-3"></i>
                             <span>Sign Out</span>
@@ -98,7 +104,7 @@
                                         <p class="font-italic mb-0 text-capitalize"><span class="fw-bold">Username:</span> {{pd.username}}</p>
                                         <p class="font-italic mb-1 text-capitalize"><span class="fw-bold">Verify: </span>{{pd.status == 1 ? 'Verified' : 'Not Verified'}} </p>
                                         <p class="font-italic mb-1 text-capitalize"><span class="fw-bold">Email:</span> {{pd.email}} </p>
-                                        <p class="font-italic mb-1 text-capitalize"><span class="fw-bold">Join At:</span> {{pd.created_at}} </p>
+                                        <p class="font-italic mb-1 text-capitalize"><span class="fw-bold">Join At:</span> {{ dateString(pd.created_at)}} </p>
                                     </div>
                                     <a href="myApplication.php" class="btn btn-info text-white me-1 flex-grow-1" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</a>
                                 </div>
@@ -118,6 +124,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">Title: {{j.job_title}}</h5>
                                                     <p class="card-text">Category: {{j.job_cat}}</p>
+                                                    <p class="card-text">Expected Date: {{ dateString(j.exdate)}} </p>
                                                     <p class="card-text">Job Description: {{j.job_descrip}}</p>
                                                 </div>
                                             </div>

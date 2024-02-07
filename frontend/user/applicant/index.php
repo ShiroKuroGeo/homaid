@@ -95,6 +95,12 @@
             </a>
           </li>
           <li>
+            <a class="dropdown-item d-flex align-items-center text-white" href="history.php">
+              <i class="bi bi-chat me-3"></i>
+              <span>History</span>
+            </a>
+          </li>
+          <li>
             <a class="dropdown-item d-flex align-items-center text-white" href="/homaid/backend/logout.php" id="signOutLink">
               <i class="bi bi-box-arrow-right me-3"></i>
               <span>Sign Out</span>
@@ -174,7 +180,8 @@
                   <h4 class="text-capitalize">{{u.firstname}}</h4>
                   Job Title: <span class="text-capitalize">{{u.job_title}}</span>
                   Job Types: <span class="text-capitalize">{{u.job_types}}</span>
-                  Location: <span class="text-capitalize">{{u.location == '' ? 'No Location' : u.location}}</span>
+                  Date Expected: <span class="text-capitalize">{{dateString(u.exdate) == 'Invalid Date' ? 'No Specific Date' : dateString(u.exdate)}}</span>
+                  Location: <span class="text-capitalize">{{u.location == '' ? 'No Specific Location' : u.location}}</span>
                 </div>
               </div>
             </div>
