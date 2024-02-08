@@ -227,7 +227,7 @@ class admin
 
     private function allReportedQuery()
     {
-        return "SELECT re.reported_id, re.reason, re.report_id, re.created_at, repui.firstname AS repFirstname, repui.lastname AS repLastname, ui.firstname, ui.lastname FROM `reports` AS re INNER JOIN `users` AS repui INNER JOIN `users` AS ui ON re.user_id = ui.user_id AND re.reported_id = repui.user_id";
+        return "SELECT re.reported_id, re.reason, re.status as statre, re.report_id, re.created_at, repui.firstname AS repFirstname, repui.lastname AS repLastname, ui.firstname, ui.lastname FROM `reports` AS re INNER JOIN `users` AS repui INNER JOIN `users` AS ui ON re.user_id = ui.user_id AND re.reported_id = repui.user_id ORDER BY `created_at` DESC";
     }
 
     private function reportToRestrictQuery()
@@ -237,6 +237,6 @@ class admin
     
     private function deleteReportedQuery()
     {
-        return "DELETE FROM `reports` WHERE `reported_id` = ?";
+        return "UPDATE `reports` SET `status` = 1 WHERE `reported_id` = ?";
     }
 }

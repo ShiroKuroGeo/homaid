@@ -76,6 +76,7 @@ createApp({
                     for (var v of r.data) {
                         vue.getAllReported.push({
                             reason: v.reason,
+                            statre: v.statre,
                             report_id: v.report_id,
                             created_at: v.created_at,
                             repFirstname: v.repFirstname,

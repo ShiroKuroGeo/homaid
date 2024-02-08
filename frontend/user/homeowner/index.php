@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php session_start(); ?>
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -101,7 +101,7 @@
                         <h2>We are team of talented digital marketers</h2>
                     </div>
                 </div>
-                <button class="btn btn-md btn-primary px-5 mt-3" data-bs-toggle="modal" data-bs-target="#storeJobs">Post Jobs</button>
+                <button class="btn btn-md btn-primary px-5 mt-3" data-bs-toggle="modal" data-bs-target="#storeJobs" <?php echo $_SESSION['status'] == 0 ? 'disabled' : ''; ?>><?php echo $_SESSION['status'] == 0 ? 'You are not verified! Please wait until 2 days for admin checking.' : 'Post Jobs'; ?></button>
                 <div class="modal fade" id="storeJobs" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -169,10 +169,10 @@
                                     <div class="text-center">
                                         <img :src="'../../../assets/img/' + ap.picture" height="250" width="250" class="rounded" alt="">
                                     </div>
-                                    <div class="social">
-                                        <a :href="'/homaid/frontend/chat/chatroom.php?id='+ap.user_id" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User"><i class="bi bi-chat"></i></a>
+                                    <div :class="myStatus == 0 ? 'visually-hidden' : 'social' ">
+                                        <a :href="'/homaid/frontend/chat/chatroom.php?id='+ap.user_id" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User" :disabled="myStatus == 0"><i class="bi bi-chat"></i></a>
                                         <button class="btn btn-sm btn-light p-2" @click="hireThisPersion(ap.user_id)" data-bs-toggle="popover" data-bs-trigger="hover" title="Apply" data-bs-placement="top" data-bs-content="Message User" :disabled="myStatus == 0"><i class="bi bi-hand-thumbs-down" v-if="myStatus == 0"></i><i class="bi bi-hand-thumbs-up-fill" v-else></i></button>
-                                        <a type="button" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Report Users" data-bs-content="Report Users">
+                                        <a type="button" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Report Users" data-bs-content="Report Users" :disabled="myStatus == 0">
                                             <i class="bi bi-exclamation-circle" @click="getUserId(ap.user_id)" data-bs-toggle="modal" data-bs-target="#reportUserasd"></i>
                                         </a>
                                     </div>

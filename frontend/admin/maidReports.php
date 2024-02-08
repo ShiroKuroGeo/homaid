@@ -96,14 +96,16 @@
                                             <th scope="col">Reporter</th>
                                             <th scope="col">Reported</th>
                                             <th scope="col">Reason</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="g of getAllReported">
+                                        <tr v-for="g of getAllReported" >
                                             <td class="text-capitalize">{{g.lastname}}, {{g.firstname}}</td>
                                             <td class="text-capitalize">{{g.repLastname}}, {{g.repFirstname}}</td>
                                             <td class="text-capitalize">{{g.reason}}</td>
+                                            <td class="text-capitalize"><small :class="g.statre == 0 ? 'bg-warning p-2 rounded' : 'bg-danger p-2 rounded'">{{g.statre == 0 ? 'Pending' : 'Reported'}}</small></td>
                                             <td class="text-capitalize">
                                                 <button style="cursor: pointer" type="button" class="btn btn-primary btn-sm" @click="getUserId(g.reported_id)" data-bs-toggle="modal" data-bs-target="#restrict">Restrict User</button>
                                             </td>
@@ -113,16 +115,12 @@
                                 <div class="modal fade" id="restrict" tabindex="-1" aria-labelledby="restrictLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="restrictLabel">Modal title</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div class="modal-body p-5 text-center">
+                                                Are you sure want to Restrict/Ban ?
                                             </div>
-                                            <div class="modal-body">
-                                                Are you sure want to restrict user?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary" @click="reportToRestrict(ids)">Restrict</button>
+                                            <div class="modal-footer d-flex justify-content-between">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                                                <button type="button" class="btn btn-primary" @click="reportToRestrict(ids)">Yes</button>
                                             </div>
                                         </div>
                                     </div>
