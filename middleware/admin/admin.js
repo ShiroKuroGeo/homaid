@@ -12,6 +12,7 @@ createApp({
             getAllReported: [],
             countAdmin: 0,
             jobsCount: 0,
+            myid: 0,
             getSelectedPicture: '',
             getSelectedValid: '',
             ids: 0,
@@ -19,6 +20,19 @@ createApp({
         }
     },
     methods: {
+        getmyid: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "getID");
+            axios.post('../../backend/routes/admin.php', data)
+                .then(function (r) {
+                    for (var v of r.data) {
+                        vue.fullname = v.firstname;
+                        vue.picture = v.picture;
+                        vue.role = v.role;
+                    }
+                });
+        },
         getUsers: function () {
             const vue = this;
             var data = new FormData();
@@ -56,10 +70,10 @@ createApp({
             data.append("id", id);
             axios.post('../../backend/routes/admin.php', data)
                 .then(function (r) {
-                    if(r.data == 200){
+                    if (r.data == 200) {
                         alert('Reported restrict!');
                         window.location.reload();
-                    }else{
+                    } else {
                         alert(r.data);
                     }
 
@@ -210,7 +224,7 @@ createApp({
                     });
                 });
         },
-        getUserId: function(id){
+        getUserId: function (id) {
             this.ids = id;
         }
     },
@@ -218,10 +232,11 @@ createApp({
         this.getUsers();
         this.getUsersCount();
         this.getJobsCount();
-        this.getReportedUsers   ();
+        this.getReportedUsers();
         this.getReportsCount();
         this.chartReports();
         this.requestHomowner();
+        this.getmyid();
     },
     computed: {
         selectedApproved() {

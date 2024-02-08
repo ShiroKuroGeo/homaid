@@ -16,6 +16,11 @@
         echo $admin->users();
     }
 
+    function getID(){
+        $admin = new admin();
+        echo $admin->getID($_SESSION['id']);
+    }
+
     function usersCount(){
         $admin = new admin();
         echo $admin->usersCount();

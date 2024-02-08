@@ -7,6 +7,11 @@ class admin
     {
         return $this->usersFunction();
     }
+    
+    public function getID($id)
+    {
+        return $this->getIDFunction($id);
+    }
 
     public function reportToRestrict($id)
     {
@@ -145,6 +150,23 @@ class admin
         }
     }
 
+    private function getIDFunction($id)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->getIDQuery());
+                $stmt->execute(array($id));
+                $result = $stmt->fetchAll();
+                return json_encode($result);
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
     private function changeStatusFunction($id, $status)
     {
         try {
@@ -165,6 +187,7 @@ class admin
             return $th;
         }
     }
+
     private function reportToRestrictFunction($id)
     {
         try {
@@ -218,6 +241,11 @@ class admin
     private function requestHomownerQuery()
     {
         return "SELECT * FROM `users` WHERE `role` = 2 ORDER BY `user_id` DESC";
+    }
+
+    private function getIDQuery()
+    {
+        return "SELECT * FROM `users` WHERE `user_id` = ?";
     }
 
     private function changeStatusQuery()

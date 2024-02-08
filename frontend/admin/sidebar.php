@@ -12,12 +12,12 @@
                 <i class="bi bi-grid"></i>
                 <span>Request</span>
             </a>
-        </li><!-- End Login Page Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="maidReports.php">
                 <i class="bi bi-grid"></i>
                 <span>Maid Reports</span>
             </a>
-        </li><!-- End Login Page Nav -->
+        </li>
     </ul>
 </aside><!-- End Sidebar-->
