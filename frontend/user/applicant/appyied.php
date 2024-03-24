@@ -139,7 +139,6 @@
                                     <td class="text-center">{{ap.hfirstname}}, {{ap.hlastname}}</td>
                                     <td class="text-center">{{ap.status == 1 ? 'Waiting for approve' : ap.status == 2 ? 'Hired' : ap.status == 3 ? 'Approved' : ap.status == 5 ? 'Interview' : 'Decline'}}</td>
                                     <td class="text-center">{{ap.created_at}}</td>
-                                    <td class="text-center">{{ ap }}</td>
                                     <td class="text-center">
                                         <a :href="'chat.php?appli='+ap.appl_id" class="text-primary">View</a>
                                     </td>

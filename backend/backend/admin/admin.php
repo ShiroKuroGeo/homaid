@@ -7,10 +7,15 @@ class admin
     {
         return $this->usersFunction();
     }
-    
+
     public function getID($id)
     {
         return $this->getIDFunction($id);
+    }
+
+    public function returnStatus($id)
+    {
+        return $this->returnStatusFunction($id);
     }
 
     public function reportToRestrict($id)
@@ -150,6 +155,28 @@ class admin
         }
     }
 
+    private function returnStatusFunction($id)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+                $stmt = $db->getCon()->prepare($this->returnStatusQuery());
+                $stmt->execute(array($id));
+                $result = $stmt->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 401;
+                }
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
     private function getIDFunction($id)
     {
         try {
@@ -202,9 +229,9 @@ class admin
                     $stmt2->execute(array($id));
                     $result2 = $stmt2->fetch();
 
-                    if(!$result2){
+                    if (!$result2) {
                         return 200;
-                    }else{
+                    } else {
                         return 401;
                     }
                 } else {
@@ -240,7 +267,7 @@ class admin
 
     private function requestHomownerQuery()
     {
-        return "SELECT * FROM `users` WHERE `role` = 2 ORDER BY `user_id` DESC";
+        return "SELECT * FROM `users` WHERE `role` != 3 ORDER BY `user_id` DESC";
     }
 
     private function getIDQuery()
@@ -260,9 +287,14 @@ class admin
 
     private function reportToRestrictQuery()
     {
-        return "UPDATE `users` SET `status`= 0 WHERE `user_id` = ?";
+        return "UPDATE `users` SET `status`= 3 WHERE `user_id` = ?";
     }
-    
+
+    private function returnStatusQuery()
+    {
+        return "UPDATE `applicants` SET `status`= 0 WHERE `user_id` = ?";
+    }
+
     private function deleteReportedQuery()
     {
         return "UPDATE `reports` SET `status` = 1 WHERE `reported_id` = ?";

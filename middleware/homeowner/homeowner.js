@@ -64,21 +64,23 @@ createApp({
                     vue.applicants = [];
 
                     for (var v of r.data) {
-                        vue.applicants.push({
-                            appli_id: v.appli_id,
-                            picture: v.picture,
-                            age: v.age,
-                            rating: v.rating,
-                            no_of_rating: v.no_of_rating,
-                            exdate: v.exdate,
-                            skills: v.skills,
-                            status: v.status,
-                            created_at: v.created_at,
-                            updated_at: v.updated_at,
-                            firstname: v.firstname,
-                            lastname: v.lastname,
-                            user_id: v.user_id,
-                        })
+                        if(v.status == 1){
+                            vue.applicants.push({
+                                appli_id: v.appli_id,
+                                picture: v.picture,
+                                age: v.age,
+                                rating: v.rating,
+                                no_of_rating: v.no_of_rating,
+                                exdate: v.exdate,
+                                skills: v.skills,
+                                status: v.status,
+                                created_at: v.created_at,
+                                updated_at: v.updated_at,
+                                firstname: v.firstname,
+                                lastname: v.lastname,
+                                user_id: v.user_id,
+                            })
+                        }
                     }
                 });
         },
@@ -206,7 +208,7 @@ createApp({
             axios.post('../../../backend/routes/homeowner.php', data)
                 .then(function (r) {
                     if (r.data == 200) {
-                        alert("Successfully Hired!");
+                        alert("Schedule for interview.");
                     } else if (r.data == 401) {
                         alert('Already hired this person!');
                     } else {
@@ -225,7 +227,7 @@ createApp({
             axios.post('../../../backend/routes/homeowner.php', data)
                 .then(function (r) {
                     if (r.data == 200) {
-                        alert("Successfully Hired!");
+                        alert("Send Requirements!");
                     } else {
                         alert("Not Successfull");
                     }
@@ -257,7 +259,7 @@ createApp({
                 axios.post('../../../backend/routes/homeowner.php', data)
                     .then(function (r) {
                         if (r.data == 200) {
-                            alert("Successfully Hired!");
+                            alert("Waiting for Interview!");
                             vue.hireds();
                         } else {
                             alert("Not Successfull");

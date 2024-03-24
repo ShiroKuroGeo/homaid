@@ -76,12 +76,17 @@ class users
                 while ($row = $stmt->fetch()) {
                     $role = $row['role'];
                     $_SESSION['status'] = $row['status'];
+                    $status = $row['status'];
                     $_SESSION['id'] = $row['user_id'];
                     $_SESSION['role'] = $row['role'];
                 }
 
-                if($role != null){
-                    return $role;
+                if($status != 3){
+                    if($role != null){
+                        return $role;
+                    }else{
+                        return 400;
+                    }
                 }else{
                     return 400;
                 }

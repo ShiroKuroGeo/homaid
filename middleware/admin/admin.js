@@ -71,6 +71,21 @@ createApp({
             axios.post('../../backend/routes/admin.php', data)
                 .then(function (r) {
                     if (r.data == 200) {
+                        vue.returnStatus(id);
+                    } else {
+                        alert(r.data);
+                    }
+
+                });
+        },
+        returnStatus(id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("method", "returnStatus");
+            data.append("id", id);
+            axios.post('../../backend/routes/admin.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
                         alert('Reported restrict!');
                         window.location.reload();
                     } else {
@@ -78,6 +93,7 @@ createApp({
                     }
 
                 });
+
         },
         getReportedUsers: function () {
             const vue = this;

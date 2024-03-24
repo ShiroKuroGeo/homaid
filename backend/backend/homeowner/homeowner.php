@@ -603,7 +603,7 @@ class homeowner
 
     private function checkIfQueryIsOkayQuery()
     {
-        return "SELECT * FROM `hireds` WHERE `homeowner_id` = ? AND `hired_user_id` = ?";
+        return "SELECT * FROM `hireds` WHERE `homeowner_id` = ? AND `hired_user_id` = ? AND `status` != 10";
     }
 
     private function rateUserQuery()

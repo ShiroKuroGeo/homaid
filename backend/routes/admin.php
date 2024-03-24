@@ -55,5 +55,10 @@
         $admin = new admin();
         echo $admin->reportToRestrict($_POST['id']);
     }
+    
+    function returnStatus(){
+        $admin = new admin();
+        echo $admin->returnStatus($_POST['id']);
+    }
 
 ?>

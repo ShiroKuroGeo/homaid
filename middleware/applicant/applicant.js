@@ -344,7 +344,35 @@ createApp({
                         }
                     }
                 });
-        }
+        },
+        getRating: function (id) {
+            const vue = this;
+
+            var data = new FormData();
+            data.append("method", "getRating");
+            data.append("id", id);
+            return axios.post('../../../backend/routes/homeowner.php', data)
+                .then(function (response) {
+                    return response.data;
+                })
+        },
+        rateUser: function (id) {
+            const vue = this;
+
+            var data = new FormData();
+            data.append("method", "rateUser");
+            data.append("id", id);
+            data.append("rate", vue.rate);
+            axios.post('../../../backend/routes/homeowner.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert("Success!");
+                        vue.hireds();
+                    } else {
+                        alert("Not Successfull");
+                    }
+                });
+        },
     },
     created: function () {
         this.jobs();

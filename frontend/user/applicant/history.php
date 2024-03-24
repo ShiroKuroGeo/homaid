@@ -127,7 +127,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Home Owner</th>
                                     <th scope="col">Job Title</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Rating</th>
@@ -136,15 +135,40 @@
                             <tbody>
                                 <tr v-for="(ap, index) of hiredApplicants">
                                     <th scope="row">{{1+index++}}</th>
-                                    <td>{{ap.lastname}}, {{ap.firstname}}</td>
                                     <td>{{ ap.jobTitle == '' ? 'Unknown' : ap.jobTitle }}</td>
                                     <td>Done</td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary">Rate Home Owner</button>
+                                        <button class="btn btn-sm btn-primary" @click="getDoneJob(ap.homeowner_id)" data-bs-toggle="modal" data-bs-target="#sendrate">Rate Home Owner</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="modal fade" id="sendrate" tabindex="-1" aria-labelledby="sendrateLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered text-dark">
+                            <div class="modal-content  bg-light">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="sendrateLabel">Send Requirements</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-12 text-start p-2 rounded">
+                                        <div class="mb-3">
+                                            <label class="my-4">Rate User</label> <br>
+                                            <select v-model="rate" class="form-select">
+                                                <option value="0" selected hidden>Rate User</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <button type="button" class="float-end px-4 btn btn-primary col-5" @click="rateUser(getJobDoneId)">Send Rate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

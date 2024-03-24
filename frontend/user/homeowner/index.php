@@ -180,7 +180,7 @@
                                 <div class="member-info">
                                     <h4 class="text-capitalize">{{ap.lastname}}, {{ap.firstname}}</h4>
                                     <span class="text-capitalize">{{ap.age}}</span>
-                                    <span class="text-capitalize">Rate: {{ (ap.rating / (ap.no_of_rating * 5)) * 100 }}%</span>
+                                    <span class="text-capitalize">Rate: {{ isNaN((ap.rating / (ap.no_of_rating * 5)) * 100) ? 0 : ((ap.rating / (ap.no_of_rating * 5)) * 100) }}%</span>
                                     <span class="text-capitalize">- {{ap.skills}}.</span>
                                 </div>
                             </div>

@@ -120,7 +120,7 @@
                                         <div class="d-flex justify-content-evenly rounded-3 p-2 mb-2" style="background-color: #efefef;">
                                             <div>
                                                 <p class="small text-muted mb-1">Status</p>
-                                                <p class="mb-0">{{status == 1 ? 'Approved' : 'Decline'}}</p>
+                                                <p class="mb-0">{{status == 1 ? 'Approved' : status == 2 ? 'Decline' : 'Not Verified'}}</p>
                                             </div>
                                             <div class="px-3">
                                                 <p class="small text-muted mb-1">Applied</p>
@@ -128,7 +128,7 @@
                                             </div>
                                         </div>
                                         <div class="d-flex pt-1">
-                                            <button type="button" class="btn btn-outline-primary me-1 flex-grow-1" data-bs-toggle="modal" data-bs-target="#postApplication">Post</button>
+                                            <button type="button" class="btn btn-outline-primary me-1 flex-grow-1" data-bs-toggle="modal" data-bs-target="#postApplication" :disabled="status == 0 || status == 2">Post</button>
                                             <a href="myApplication.php" class="btn btn-outline-warning me-1 flex-grow-1">View</a>
                                             <a href="myApplication.php" class="btn btn-outline-info me-1 flex-grow-1" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</a>
                                         </div>

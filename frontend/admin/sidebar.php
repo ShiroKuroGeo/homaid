@@ -10,7 +10,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="request.php">
                 <i class="bi bi-grid"></i>
-                <span>Request</span>
+                <span>Users</span>
             </a>
         </li>
         <li class="nav-item">
